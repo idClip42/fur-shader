@@ -37,7 +37,7 @@
 		
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha
-		#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
+		//#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
 		#pragma target 3.0
 
 		sampler2D _MainTex;

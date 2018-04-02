@@ -11,6 +11,8 @@ namespace UnityEditor
 			public static GUIContent fadeText = new GUIContent("Fade Rendering");
 			public static GUIContent colorText = new GUIContent("Color");
 			public static GUIContent mainTexText = new GUIContent("Albedo");
+			public static GUIContent normalText = new GUIContent("Normal");
+			public static GUIContent normalStrText = new GUIContent("Normal Strength");
 			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
 			public static GUIContent noiseTexText = new GUIContent("Noise");
 			public static GUIContent noiseStrText = new GUIContent("Noise Strength");
@@ -35,6 +37,8 @@ namespace UnityEditor
 		MaterialProperty fade = null;
 		MaterialProperty color = null;
 		MaterialProperty mainTex = null;
+		MaterialProperty normal = null;
+		MaterialProperty normalStr = null;
 		MaterialProperty alphaStr = null;
 		MaterialProperty noiseTex = null;
 		MaterialProperty noiseStr = null;
@@ -59,6 +63,8 @@ namespace UnityEditor
 			fade = FindProperty("_Fade", props);
 			color = FindProperty("_Color", props);
 			mainTex = FindProperty("_MainTex", props);
+			normal = FindProperty("_Normals", props);
+			normalStr = FindProperty("_NormalStr", props);
 			alphaStr = FindProperty("_AlphaMult", props);
 			noiseTex = FindProperty("_NoiseTex", props);
 			noiseStr = FindProperty("_NoiseMult", props);
@@ -97,11 +103,12 @@ namespace UnityEditor
 
 			GUILayout.Label(Styles.primaryMapsText, EditorStyles.boldLabel);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, color);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.normalText, normal, normalStr);
 			m_MaterialEditor.TextureScaleOffsetProperty(mainTex);
 			m_MaterialEditor.ShaderProperty(alphaStr, Styles.alphaStrText);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
 			m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
-			m_MaterialEditor.ShaderProperty(noiseStr, Styles.noiseStrText);
+//			m_MaterialEditor.ShaderProperty(noiseStr, Styles.noiseStrText);
 			m_MaterialEditor.ShaderProperty(smooth, Styles.smoothText);
 			m_MaterialEditor.ShaderProperty(metal, Styles.metalText);
 			m_MaterialEditor.ShaderProperty(ao, Styles.aoText);

@@ -2,6 +2,8 @@
 
 fixed4 _Color;
 sampler2D _MainTex;
+sampler2D _Normals;
+half _NormalStr;
 half _AlphaMult;
 sampler2D _NoiseTex;
 half _NoiseMult;
@@ -57,6 +59,7 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 		clip(o.Alpha - lerp(_Cutoff, _CutoffEnd, FUR_MULTIPLIER));
 	#endif
 
+	o.Normal = lerp(o.Normal, UnpackNormal(tex2D(_Normals, IN.uv_MainTex)), _NormalStr);
 
 
 	o.Metallic = _Metallic * FUR_MULTIPLIER * FUR_MULTIPLIER;

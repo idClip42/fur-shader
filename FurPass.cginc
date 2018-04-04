@@ -29,6 +29,13 @@ void vert (inout appdata_full v)
 {
 	fixed3 direction = lerp(v.normal, _Gravity * _GravityStrength + v.normal * (1-_GravityStrength), FUR_MULTIPLIER);
 	v.vertex.xyz += direction * _FurLength * FUR_MULTIPLIER * v.color.a;
+
+	// TODO:
+	// Try getting the tangents of the strands here
+	// This will require getting the derivative of the direction "function"
+	// Which will need:
+	// a) an actual mathematical function
+	// b) probably find a web tool to calculate derivative. It's been too long since Calculus.
 }
 
 struct Input {

@@ -25,10 +25,27 @@ uniform float _StrandColorStrength;
 
 half _Fade;
 
+//#include "UnityCG.cginc"
+
 void vert (inout appdata_full v)
 {
 	fixed3 direction = lerp(v.normal, _Gravity * _GravityStrength + v.normal * (1-_GravityStrength), FUR_MULTIPLIER);
 	v.vertex.xyz += direction * _FurLength * FUR_MULTIPLIER * v.color.a;
+
+// Tries to set strand direction based on normal map
+//	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
+//    half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
+//    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
+//    half tangentSign = v.tangent.w * unity_WorldTransformParams.w;
+//    half3 wBitangent = cross(wNormal, wTangent) * tangentSign;
+//    half3 tspace0 = half3(wTangent.x, wBitangent.x, wNormal.x);
+//    half3 tspace1 = half3(wTangent.y, wBitangent.y, wNormal.y);
+//    half3 tspace2 = half3(wTangent.z, wBitangent.z, wNormal.z);
+//    half3 worldNormal;
+//    worldNormal.x = dot(tspace0, normals);
+//    worldNormal.y = dot(tspace1, normals);
+//    worldNormal.z = dot(tspace2, normals);
+//    v.vertex.xyz += worldNormal * _FurLength * FUR_MULTIPLIER;
 
 	// TODO:
 	// Try getting the tangents of the strands here

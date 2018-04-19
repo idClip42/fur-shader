@@ -16,6 +16,7 @@ uniform float _FurLength;
 uniform float _Cutoff;
 uniform float _CutoffEnd;
 uniform float _EdgeFade;
+uniform half _NormInf;
 
 uniform fixed3 _Gravity;
 uniform fixed _GravityStrength;
@@ -23,36 +24,37 @@ uniform fixed _GravityStrength;
 sampler2D _StrandTex;
 uniform float _StrandColorStrength;
 
+sampler2D _WindCloud;
+fixed4 _WindDir;
+
 half _Fade;
 
-//#include "UnityCG.cginc"
+#include "UnityCG.cginc"
+
+half3 GetMapNormal(inout appdata_full v)
+{
+	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
+    half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
+    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
+    half3 wBitangent = cross(wNormal, wTangent) * v.tangent.w * unity_WorldTransformParams.w;
+	return half3(dot(half3(wTangent.x, wBitangent.x, wNormal.x), normals), dot(half3(wTangent.y, wBitangent.y, wNormal.y), normals), dot(half3(wTangent.z, wBitangent.z, wNormal.z), normals));
+}
 
 void vert (inout appdata_full v)
 {
-	fixed3 direction = lerp(v.normal, _Gravity * _GravityStrength + v.normal * (1-_GravityStrength), FUR_MULTIPLIER);
+	half t = fmod(_Time.y * _WindDir.w, 1);
+//	half4 pt = v.texcoord;
+//	pt.y = t;
+//	pt.x = v.texcoord.x + t/3;
+	half4 pt = half4(v.texcoord.x + t/3, t, v.texcoord.z, v.texcoord.w);
+	half wind = tex2Dlod(_WindCloud, pt).x;
+
+	fixed3 forceDir = lerp(_Gravity * _GravityStrength, _WindDir.xyz, wind);
+
+	fixed3 n = lerp(v.normal, GetMapNormal(v), _NormInf);
+
+	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), FUR_MULTIPLIER);
 	v.vertex.xyz += direction * _FurLength * FUR_MULTIPLIER * v.color.a;
-
-// Tries to set strand direction based on normal map
-//	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
-//    half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
-//    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
-//    half tangentSign = v.tangent.w * unity_WorldTransformParams.w;
-//    half3 wBitangent = cross(wNormal, wTangent) * tangentSign;
-//    half3 tspace0 = half3(wTangent.x, wBitangent.x, wNormal.x);
-//    half3 tspace1 = half3(wTangent.y, wBitangent.y, wNormal.y);
-//    half3 tspace2 = half3(wTangent.z, wBitangent.z, wNormal.z);
-//    half3 worldNormal;
-//    worldNormal.x = dot(tspace0, normals);
-//    worldNormal.y = dot(tspace1, normals);
-//    worldNormal.z = dot(tspace2, normals);
-//    v.vertex.xyz += worldNormal * _FurLength * FUR_MULTIPLIER;
-
-	// TODO:
-	// Try getting the tangents of the strands here
-	// This will require getting the derivative of the direction "function"
-	// Which will need:
-	// a) an actual mathematical function
-	// b) probably find a web tool to calculate derivative. It's been too long since Calculus.
 }
 
 struct Input {

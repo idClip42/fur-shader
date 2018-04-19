@@ -22,8 +22,13 @@
 		_Gravity ("Gravity direction", Vector) = (0,0,1,0)
 		_GravityStrength ("Gravity strength", Range(0,1)) = 0.25
 
+		_NormInf ("Normal Influence", Range(0,1)) = 0
+
 		_StrandTex ("Strand Colors", 2D) = "white" {}
 		_StrandColorStrength("Strand Color Multiply Strength", Range(0,1)) = 0.5
+
+		_WindCloud ("Wind Cloud", 2D) = "black" {}
+		_WindDir ("Wind Direction and Speed", Vector) = (0,0,0,0)
 
         [HideInInspector] _SrcBlend ("__src", Float) = 1.0
         [HideInInspector] _DstBlend ("__dst", Float) = 0.0

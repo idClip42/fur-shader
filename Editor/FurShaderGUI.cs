@@ -26,12 +26,16 @@ namespace UnityEditor
 			public static GUIContent edgeFadeText = new GUIContent("Edge Fade");
 			public static GUIContent gravityText = new GUIContent("Gravity direction");
 			public static GUIContent gravityStrText = new GUIContent("Gravity strength");
+			public static GUIContent normInfText = new GUIContent("Normal Map Influence");
 			public static GUIContent strandText = new GUIContent("Strand Colors");
 			public static GUIContent strandStrText = new GUIContent("Strand Color Multiply Strength");
+			public static GUIContent windCloudText = new GUIContent("Cloud, Direction, Speed");
+			public static GUIContent windDirText = new GUIContent("Wind Direction and Speed");
 
 			public static string primaryMapsText = "Main Maps";
 			public static string furShapeText = "Fur Shape";
 			public static string strandsText = "Strands";
+			public static string windText = "Wind";
 		}
 
 		MaterialProperty fade = null;
@@ -52,8 +56,11 @@ namespace UnityEditor
 		MaterialProperty edgeFade = null;
 		MaterialProperty gravity  = null;
 		MaterialProperty gravityStr = null;
+		MaterialProperty normInf = null;
 		MaterialProperty strand = null;
-		MaterialProperty strandStr  = null;
+		MaterialProperty strandStr = null;
+		MaterialProperty windCloud = null;
+		MaterialProperty windDir = null;
 
 		MaterialEditor m_MaterialEditor;
 
@@ -78,8 +85,11 @@ namespace UnityEditor
 			edgeFade = FindProperty("_EdgeFade", props);
 			gravity  = FindProperty("_Gravity", props);
 			gravityStr = FindProperty("_GravityStrength", props);
+			normInf = FindProperty("_NormInf", props);
 			strand = FindProperty("_StrandTex", props);
 			strandStr = FindProperty("_StrandColorStrength", props);
+			windCloud = FindProperty("_WindCloud", props);
+			windDir = FindProperty("_WindDir", props);
 		}
 
 
@@ -126,6 +136,7 @@ namespace UnityEditor
 
 			m_MaterialEditor.ShaderProperty(gravity, Styles.gravityText);
 			m_MaterialEditor.ShaderProperty(gravityStr, Styles.gravityStrText);
+			m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
 			EditorGUILayout.Space();
 
 			GUILayout.Label(Styles.strandsText, EditorStyles.boldLabel);
@@ -139,6 +150,10 @@ namespace UnityEditor
 //					SetupMaterialWithBlendMode((Material) obj, material.GetFloat("_Fade"));
 				SetupMaterialWithBlendMode(material, material.GetFloat("_Fade"));
 			//}
+			EditorGUILayout.Space();
+
+			GUILayout.Label(Styles.windText, EditorStyles.boldLabel);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.windCloudText, windCloud, windDir);
 
 		}
 

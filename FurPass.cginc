@@ -33,7 +33,8 @@ half _Fade;
 
 half3 GetMapNormal(inout appdata_full v)
 {
-	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
+//	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
+	fixed3 normals = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
     half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
     half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
     half3 wBitangent = cross(wNormal, wTangent) * v.tangent.w * unity_WorldTransformParams.w;

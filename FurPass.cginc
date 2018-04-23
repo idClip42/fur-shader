@@ -17,6 +17,7 @@ uniform float _Cutoff;
 uniform float _CutoffEnd;
 uniform float _EdgeFade;
 uniform half _NormInf;
+uniform half _NormInfTip;
 
 uniform fixed3 _Gravity;
 uniform fixed _GravityStrength;
@@ -43,16 +44,37 @@ half3 GetMapNormal(inout appdata_full v)
 
 void vert (inout appdata_full v)
 {
-	half t = fmod(_Time.y * _WindDir.w, 1);
+//	half t = fmod(_Time.y * _WindDir.w, 1);
 //	half4 pt = v.texcoord;
 //	pt.y = t;
 //	pt.x = v.texcoord.x + t/3;
-	half4 pt = half4(v.texcoord.x + t/3, t, v.texcoord.z, v.texcoord.w);
-	half wind = tex2Dlod(_WindCloud, pt).x;
+//	half4 pt = half4(v.texcoord.x + t/3, t, v.texcoord.z, v.texcoord.w);
+//	half wind = tex2Dlod(_WindCloud, pt).x;
 
-	fixed3 forceDir = lerp(_Gravity * _GravityStrength, _WindDir.xyz, wind);
+//	fixed3 forceDir = lerp(_Gravity * _GravityStrength, _WindDir.xyz, wind);
 
-	fixed3 n = lerp(v.normal, GetMapNormal(v), _NormInf);
+
+	fixed3 forceDir = _Gravity;
+
+	fixed3 n = v.normal;
+	#ifdef _NORMINFENABLE_ON
+		half3 mapNormal = GetMapNormal(v);
+		n = lerp(n, mapNormal, _NormInf);
+		forceDir = lerp(forceDir, mapNormal, _NormInfTip);
+	#else
+	#endif
+
+	forceDir *= _GravityStrength;
+
+	#ifdef _WIND_ON
+		half t = fmod(_Time.y * _WindDir.w, 1);
+		half4 pt = half4(v.texcoord.x + t/3, t, v.texcoord.z, v.texcoord.w);
+		half wind = tex2Dlod(_WindCloud, pt).x;
+		forceDir = lerp(forceDir, _WindDir.xyz, wind);
+	#else
+	#endif
+
+//	fixed3 n = lerp(v.normal, GetMapNormal(v), _NormInf);
 
 	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), FUR_MULTIPLIER);
 	v.vertex.xyz += direction * _FurLength * FUR_MULTIPLIER * v.color.a;
@@ -68,6 +90,11 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 {
 	fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 
+
+	o.Metallic = _Metallic * FUR_MULTIPLIER * FUR_MULTIPLIER;
+	o.Smoothness = _Smoothness * FUR_MULTIPLIER * FUR_MULTIPLIER;
+
+
 	o.Albedo = c.rgb *
 		lerp(1,
 			tex2D (_StrandTex, fixed2(FUR_MULTIPLIER, 0.5f)),
@@ -82,15 +109,14 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 		alpha *= 1 - (FUR_MULTIPLIER * FUR_MULTIPLIER);
 		alpha = 1 - 2 * _EdgeFade * (1 - alpha);
 		o.Alpha *= alpha;
+		o.Albedo *= o.Alpha;
+		o.Smoothness *= o.Alpha;
+		clip(o.Alpha - 0.01);
 	#else
 		clip(o.Alpha - lerp(_Cutoff, _CutoffEnd, FUR_MULTIPLIER));
 	#endif
 
 	o.Normal = lerp(o.Normal, UnpackNormal(tex2D(_Normals, IN.uv_MainTex)), _NormalStr);
-
-
-	o.Metallic = _Metallic * FUR_MULTIPLIER * FUR_MULTIPLIER;
-	o.Smoothness = _Smoothness * FUR_MULTIPLIER * FUR_MULTIPLIER;
 
 	o.Occlusion = lerp(1, o.Albedo, _AOColor) * _AO;
 }

@@ -9,13 +9,10 @@ namespace UnityEditor
 		private static class Styles
 		{
 			public static GUIContent fadeText = new GUIContent("Fade Rendering");
-			public static GUIContent colorText = new GUIContent("Color");
 			public static GUIContent mainTexText = new GUIContent("Albedo");
 			public static GUIContent normalText = new GUIContent("Normal");
-			public static GUIContent normalStrText = new GUIContent("Normal Strength");
 			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
 			public static GUIContent noiseTexText = new GUIContent("Noise");
-			public static GUIContent noiseStrText = new GUIContent("Noise Strength");
 			public static GUIContent smoothText = new GUIContent("Smoothness");
 			public static GUIContent metalText = new GUIContent("Metallic");
 			public static GUIContent aoText = new GUIContent("Ambient Occlusion Strength");
@@ -26,11 +23,14 @@ namespace UnityEditor
 			public static GUIContent edgeFadeText = new GUIContent("Edge Fade");
 			public static GUIContent gravityText = new GUIContent("Gravity direction");
 			public static GUIContent gravityStrText = new GUIContent("Gravity strength");
-			public static GUIContent normInfText = new GUIContent("Normal Map Influence");
+			public static GUIContent normInfText = new GUIContent("Normal Map Base Influence");
+			public static GUIContent normInfTipText = new GUIContent("Normal Map Tip Influence");
 			public static GUIContent strandText = new GUIContent("Strand Colors");
 			public static GUIContent strandStrText = new GUIContent("Strand Color Multiply Strength");
 			public static GUIContent windCloudText = new GUIContent("Cloud, Direction, Speed");
-			public static GUIContent windDirText = new GUIContent("Wind Direction and Speed");
+
+			public static GUIContent normInfEnableText = new GUIContent("Enable Normal Influence");
+			public static GUIContent windEnableText = new GUIContent("Enable Wind");
 
 			public static string primaryMapsText = "Main Maps";
 			public static string furShapeText = "Fur Shape";
@@ -62,6 +62,10 @@ namespace UnityEditor
 		MaterialProperty windCloud = null;
 		MaterialProperty windDir = null;
 
+		MaterialProperty normInfEnable = null;
+		MaterialProperty windEnable = null;
+		MaterialProperty normInfTip = null;
+
 		MaterialEditor m_MaterialEditor;
 
 
@@ -88,8 +92,11 @@ namespace UnityEditor
 			normInf = FindProperty("_NormInf", props);
 			strand = FindProperty("_StrandTex", props);
 			strandStr = FindProperty("_StrandColorStrength", props);
+			windEnable = FindProperty("_Wind", props);
 			windCloud = FindProperty("_WindCloud", props);
 			windDir = FindProperty("_WindDir", props);
+			normInfEnable = FindProperty("_NormInfEnable", props);
+			normInfTip = FindProperty("_NormInfTip", props);
 		}
 
 
@@ -109,8 +116,11 @@ namespace UnityEditor
 
 			//EditorGUI.BeginChangeCheck();
 			//{
+
+			// FADE RENDERING
 			m_MaterialEditor.ShaderProperty(fade, Styles.fadeText);
 
+			// PRIMARY MAPS
 			GUILayout.Label(Styles.primaryMapsText, EditorStyles.boldLabel);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, color);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.normalText, normal, normalStr);
@@ -126,6 +136,7 @@ namespace UnityEditor
 			EditorGUI.BeginChangeCheck();
 			EditorGUILayout.Space();
 
+			// FUR SHAPE
 			GUILayout.Label(Styles.furShapeText, EditorStyles.boldLabel);
 			m_MaterialEditor.ShaderProperty(length, Styles.lengthText);
 			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffText);
@@ -136,9 +147,17 @@ namespace UnityEditor
 
 			m_MaterialEditor.ShaderProperty(gravity, Styles.gravityText);
 			m_MaterialEditor.ShaderProperty(gravityStr, Styles.gravityStrText);
-			m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
+
+			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnableText);
+			if(material.GetFloat("_NormInfEnable") == 1.0f)
+			{
+				m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
+				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTipText);
+			}
+			
 			EditorGUILayout.Space();
 
+			// STRANDS
 			GUILayout.Label(Styles.strandsText, EditorStyles.boldLabel);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.strandText, strand);
 			m_MaterialEditor.ShaderProperty(strandStr, Styles.strandStrText);
@@ -152,8 +171,11 @@ namespace UnityEditor
 			//}
 			EditorGUILayout.Space();
 
+			// WIND
 			GUILayout.Label(Styles.windText, EditorStyles.boldLabel);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.windCloudText, windCloud, windDir);
+			m_MaterialEditor.ShaderProperty(windEnable, Styles.windEnableText);
+			if(material.GetFloat("_Wind") == 1.0f)
+				m_MaterialEditor.TexturePropertySingleLine(Styles.windCloudText, windCloud, windDir);
 
 		}
 
@@ -174,7 +196,7 @@ namespace UnityEditor
 				break;
 			case 1:
 				material.SetOverrideTag("RenderType", "Transparent");
-				material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+				material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
 				material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
 				material.SetInt("_ZWrite", 0);
 //				material.DisableKeyword("_ALPHATEST_ON");

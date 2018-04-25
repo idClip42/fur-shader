@@ -9,14 +9,14 @@ namespace UnityEditor
 		private static class Styles
 		{
 			public static GUIContent fadeText = new GUIContent("Fade Rendering");
-			public static GUIContent mainTexText = new GUIContent("Albedo");
+			public static GUIContent mainTexText = new GUIContent("Albedo/Alpha");
 			public static GUIContent normalText = new GUIContent("Normal");
 			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
-			public static GUIContent noiseTexText = new GUIContent("Noise");
+			public static GUIContent noiseTexText = new GUIContent("Noise Alpha");
 			public static GUIContent smoothText = new GUIContent("Smoothness");
 			public static GUIContent metalText = new GUIContent("Metallic");
-			public static GUIContent aoText = new GUIContent("Ambient Occlusion Strength");
-			public static GUIContent aoColorText = new GUIContent("Ambient Occlusion From Color");
+			public static GUIContent aoText = new GUIContent("AO Value");
+			public static GUIContent aoColorText = new GUIContent("AO From Color");
 			public static GUIContent lengthText = new GUIContent("Fur Length");
 			public static GUIContent cutoffText = new GUIContent("Alpha Cutoff");
 			public static GUIContent cutoffEndText = new GUIContent("Alpha Cutoff End");
@@ -33,6 +33,7 @@ namespace UnityEditor
 			public static GUIContent windEnableText = new GUIContent("Enable Wind");
 
 			public static string primaryMapsText = "Main Maps";
+			public static string noiseMapsText = "Noise Alpha";
 			public static string furShapeText = "Fur Shape";
 			public static string strandsText = "Strands";
 			public static string windText = "Wind";
@@ -122,20 +123,24 @@ namespace UnityEditor
 
 			// PRIMARY MAPS
 			GUILayout.Label(Styles.primaryMapsText, EditorStyles.boldLabel);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, color);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, alphaStr, color);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.normalText, normal, normalStr);
-			m_MaterialEditor.TextureScaleOffsetProperty(mainTex);
-			m_MaterialEditor.ShaderProperty(alphaStr, Styles.alphaStrText);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
-			m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+//			m_MaterialEditor.TextureScaleOffsetProperty(mainTex);
+//			m_MaterialEditor.ShaderProperty(alphaStr, Styles.alphaStrText);
 //			m_MaterialEditor.ShaderProperty(noiseStr, Styles.noiseStrText);
 			m_MaterialEditor.ShaderProperty(smooth, Styles.smoothText);
 			m_MaterialEditor.ShaderProperty(metal, Styles.metalText);
 			m_MaterialEditor.ShaderProperty(ao, Styles.aoText);
 			m_MaterialEditor.ShaderProperty(aoColor, Styles.aoColorText);
-			EditorGUI.BeginChangeCheck();
-			EditorGUILayout.Space();
+//			EditorGUI.BeginChangeCheck();
 
+			// NOISE ALPHA
+//			GUILayout.Label(Styles.noiseMapsText, EditorStyles.boldLabel);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
+			if(material.GetTexture("_NoiseTex") != null)
+				m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+
+			EditorGUILayout.Space();
 			// FUR SHAPE
 			GUILayout.Label(Styles.furShapeText, EditorStyles.boldLabel);
 			m_MaterialEditor.ShaderProperty(length, Styles.lengthText);
@@ -159,8 +164,8 @@ namespace UnityEditor
 
 			// STRANDS
 			GUILayout.Label(Styles.strandsText, EditorStyles.boldLabel);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.strandText, strand);
-			m_MaterialEditor.ShaderProperty(strandStr, Styles.strandStrText);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.strandText, strand, strandStr);
+//			m_MaterialEditor.ShaderProperty(strandStr, Styles.strandStrText);
 			//}
 			//if (EditorGUI.EndChangeCheck())
 			//{

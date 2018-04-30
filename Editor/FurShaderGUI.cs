@@ -18,6 +18,7 @@ namespace UnityEditor
 			public static GUIContent aoText = new GUIContent("AO Value");
 			public static GUIContent aoColorText = new GUIContent("AO From Color");
 			public static GUIContent lengthText = new GUIContent("Fur Length");
+			public static GUIContent offsetText = new GUIContent("Fur Offset");
 			public static GUIContent cutoffText = new GUIContent("Alpha Cutoff");
 			public static GUIContent cutoffEndText = new GUIContent("Alpha Cutoff End");
 			public static GUIContent edgeFadeText = new GUIContent("Edge Fade");
@@ -52,6 +53,7 @@ namespace UnityEditor
 		MaterialProperty ao = null;
 		MaterialProperty aoColor = null;
 		MaterialProperty length = null;
+		MaterialProperty offset = null;
 		MaterialProperty cutoff = null;
 		MaterialProperty cutoffEnd = null;
 		MaterialProperty edgeFade = null;
@@ -85,6 +87,7 @@ namespace UnityEditor
 			ao = FindProperty("_AO", props);
 			aoColor = FindProperty("_AOColor", props);
 			length = FindProperty("_FurLength", props);
+			offset = FindProperty("_Offset", props);
 			cutoff = FindProperty("_Cutoff", props);
 			cutoffEnd = FindProperty("_CutoffEnd", props);
 			edgeFade = FindProperty("_EdgeFade", props);
@@ -144,6 +147,7 @@ namespace UnityEditor
 			// FUR SHAPE
 			GUILayout.Label(Styles.furShapeText, EditorStyles.boldLabel);
 			m_MaterialEditor.ShaderProperty(length, Styles.lengthText);
+			m_MaterialEditor.ShaderProperty(offset, Styles.offsetText);
 			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffText);
 			m_MaterialEditor.ShaderProperty(cutoffEnd, Styles.cutoffEndText);
 

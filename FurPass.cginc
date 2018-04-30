@@ -13,6 +13,7 @@ half _AOColor;
 half _AO;
 
 uniform float _FurLength;
+uniform float _Offset;
 uniform float _Cutoff;
 uniform float _CutoffEnd;
 uniform float _EdgeFade;
@@ -77,7 +78,7 @@ void vert (inout appdata_full v)
 //	fixed3 n = lerp(v.normal, GetMapNormal(v), _NormInf);
 
 	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), FUR_MULTIPLIER);
-	v.vertex.xyz += direction * _FurLength * FUR_MULTIPLIER * v.color.a;
+	v.vertex.xyz += v.normal * _Offset + direction * _FurLength * FUR_MULTIPLIER * v.color.a;
 }
 
 struct Input {

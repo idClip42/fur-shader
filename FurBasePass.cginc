@@ -14,9 +14,16 @@ half _Metallic;
 fixed4 _Color;
 half _AO;
 half _AOColor;
+uniform float _Offset;
 
 sampler2D _StrandTex;
 uniform float _StrandColorStrength;
+
+void vert (inout appdata_full v)
+{
+	v.vertex.xyz += v.normal * _Offset;
+}
+
 
 void surf (Input IN, inout SurfaceOutputStandard o) {
 	o.Albedo = (tex2D (_MainTex, IN.uv_MainTex) * _Color).rgb * 

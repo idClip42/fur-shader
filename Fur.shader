@@ -16,7 +16,8 @@
 		_AO("Ambient Occlusion Strength", Range(0,1)) = 1.0
 		_AOColor("Ambient Occlusion From Color", Range(0,1)) = 0.0
 
-		_FurLength ("Fur Length", Range (.0002, 1)) = 0.1
+		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
+		_Offset ("Fur Offset", Range(-0.25, 0.25)) = 0
 		_Cutoff ("Alpha cutoff", Range(0,1)) = 0
 		_CutoffEnd ("Alpha cutoff end", Range(0,1)) = 0.5
 		_EdgeFade ("Edge fade", Range(0,1)) = 0.5
@@ -48,7 +49,7 @@
 
 
 		CGPROGRAM
-		#pragma surface surf Standard
+		#pragma surface surf Standard vertex:vert
 		#include "FurBasePass.cginc"
 		ENDCG
 

@@ -61,7 +61,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.05
 		#include "FurPass.cginc"
@@ -69,7 +69,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.10
 		#include "FurPass.cginc"
@@ -77,7 +77,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.15
 		#include "FurPass.cginc"
@@ -85,7 +85,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.20
 		#include "FurPass.cginc"
@@ -93,7 +93,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.25
 		#include "FurPass.cginc"
@@ -101,7 +101,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.30
 		#include "FurPass.cginc"
@@ -109,7 +109,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.35
 		#include "FurPass.cginc"
@@ -117,7 +117,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.40
 		#include "FurPass.cginc"
@@ -125,7 +125,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.45
 		#include "FurPass.cginc"
@@ -133,7 +133,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.50
 		#include "FurPass.cginc"
@@ -141,7 +141,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.55
 		#include "FurPass.cginc"
@@ -149,7 +149,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.60
 		#include "FurPass.cginc"
@@ -157,7 +157,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.65
 		#include "FurPass.cginc"
@@ -165,7 +165,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.70
 		#include "FurPass.cginc"
@@ -173,7 +173,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.75
 		#include "FurPass.cginc"
@@ -181,7 +181,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.80
 		#include "FurPass.cginc"
@@ -189,7 +189,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.85
 		#include "FurPass.cginc"
@@ -197,7 +197,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.90
 		#include "FurPass.cginc"
@@ -205,7 +205,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 0.95
 		#include "FurPass.cginc"
@@ -213,7 +213,7 @@
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
-		#pragma shader_feature _NORMINFENABLE_ON
+		// #pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
 		#define FUR_MULTIPLIER 1.00
 		#include "FurPass.cginc"

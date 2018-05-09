@@ -1,3 +1,7 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 #pragma target 3.0
 
 fixed4 _Color;
@@ -35,35 +39,34 @@ half _Fade;
 
 half3 GetMapNormal(inout appdata_full v)
 {
-//	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
-	fixed3 normals = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
-    half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
-    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
-    half3 wBitangent = cross(wNormal, wTangent) * v.tangent.w * unity_WorldTransformParams.w;
-	return half3(dot(half3(wTangent.x, wBitangent.x, wNormal.x), normals), dot(half3(wTangent.y, wBitangent.y, wNormal.y), normals), dot(half3(wTangent.z, wBitangent.z, wNormal.z), normals));
+	fixed3 normalMap = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
+//	fixed3 normalMap = tex2Dlod(_Normals, v.texcoord);
+//	normalMap.r = normalMap.r * 2 - 1;
+//	normalMap.g = normalMap.g * 2 - 1;
+//	normalMap.b = normalMap.b * 2 - 1;
+    float3 oSWorldNormal = mul((float3x3)unity_ObjectToWorld, v.normal);
+    float4 oTangent = mul(unity_ObjectToWorld, v.tangent);
+
+    float3 tangent = normalize(oTangent.xyz);
+    float3 normal = normalize(oSWorldNormal);
+    float3 binormal = normalize(cross(normal, tangent) * oTangent.w);
+    float3x3 tangentToWorld = transpose(float3x3(tangent, binormal, normal));
+    float3 dir = mul(tangentToWorld, normalMap);
+
+    return dir;
 }
 
 void vert (inout appdata_full v)
 {
-//	half t = fmod(_Time.y * _WindDir.w, 1);
-//	half4 pt = v.texcoord;
-//	pt.y = t;
-//	pt.x = v.texcoord.x + t/3;
-//	half4 pt = half4(v.texcoord.x + t/3, t, v.texcoord.z, v.texcoord.w);
-//	half wind = tex2Dlod(_WindCloud, pt).x;
-
-//	fixed3 forceDir = lerp(_Gravity * _GravityStrength, _WindDir.xyz, wind);
-
-
 	fixed3 forceDir = _Gravity;
 
 	fixed3 n = v.normal;
-	#ifdef _NORMINFENABLE_ON
-		half3 mapNormal = GetMapNormal(v);
-		n = lerp(n, mapNormal, _NormInf);
-		forceDir = lerp(forceDir, mapNormal, _NormInfTip);
-	#else
-	#endif
+//	#ifdef _NORMINFENABLE_ON
+//		half3 mapNormal = GetMapNormal(v);
+//		n = lerp(n, mapNormal, _NormInf);
+//		forceDir = lerp(forceDir, mapNormal, _NormInfTip);
+//	#else
+//	#endif
 
 	forceDir *= _GravityStrength;
 
@@ -74,8 +77,6 @@ void vert (inout appdata_full v)
 		forceDir = lerp(forceDir, _WindDir.xyz, wind);
 	#else
 	#endif
-
-//	fixed3 n = lerp(v.normal, GetMapNormal(v), _NormInf);
 
 	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), FUR_MULTIPLIER);
 	v.vertex.xyz += v.normal * _Offset + direction * _FurLength * FUR_MULTIPLIER * v.color.a;

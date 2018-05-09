@@ -157,12 +157,12 @@ namespace UnityEditor
 			m_MaterialEditor.ShaderProperty(gravity, Styles.gravityText);
 			m_MaterialEditor.ShaderProperty(gravityStr, Styles.gravityStrText);
 
-			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnableText);
-			if(material.GetFloat("_NormInfEnable") == 1.0f)
-			{
-				m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
-				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTipText);
-			}
+//			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnableText);
+//			if(material.GetFloat("_NormInfEnable") == 1.0f)
+//			{
+//				m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
+//				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTipText);
+//			}
 			
 			EditorGUILayout.Space();
 

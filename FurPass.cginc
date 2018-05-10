@@ -76,7 +76,8 @@ half3 GetMapNormal(inout appdata_full v)
 	half3 wNormal = v.normal;
     half3 wTangent = v.tangent.xyz;
 
-    half tangentSign = v.tangent.w * unity_WorldTransformParams.w;
+    half tangentSign = v.tangent.w;// * unity_WorldTransformParams.w;
+//    tangentSign *= -1;
     half3 wBitangent = cross(wNormal, wTangent) * tangentSign;
 
     half3 tspace0 = half3(wTangent.x, wBitangent.x, wNormal.x);
@@ -87,6 +88,7 @@ half3 GetMapNormal(inout appdata_full v)
 	half3 tnormal = tex2Dlod(_Normals, v.texcoord);// * 2;
 	tnormal -= 0.5f;	// I don't understand what's going on here
 	tnormal *= 2;
+//	tnormal = 1 - tnormal;	// Is this a needed thing?
 //	tnormal.x -= 1;
 //	tnormal.y -= 1;
 //	tnormal.z -= 1;

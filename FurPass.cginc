@@ -85,7 +85,7 @@ half3 GetMapNormal(inout appdata_full v)
 
 //	half3 tnormal = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
 	half3 tnormal = tex2Dlod(_Normals, v.texcoord);// * 2;
-	tnormal -= 0.25f;	// I don't understand what's going on here
+	tnormal -= 0.5f;	// I don't understand what's going on here
 	tnormal *= 2;
 //	tnormal.x -= 1;
 //	tnormal.y -= 1;

@@ -2,6 +2,8 @@
 
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 #pragma target 3.0
 
 fixed4 _Color;
@@ -35,25 +37,67 @@ fixed4 _WindDir;
 
 half _Fade;
 
+// Is this necessary?
 #include "UnityCG.cginc"
+
+//half3 GetMapNormal(inout appdata_full v)
+//{
+////	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
+//	fixed3 normals = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
+//    half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
+//    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
+//    half3 wBitangent = cross(wNormal, wTangent) * v.tangent.w * unity_WorldTransformParams.w;
+//	return half3(dot(half3(wTangent.x, wBitangent.x, wNormal.x), normals), dot(half3(wTangent.y, wBitangent.y, wNormal.y), normals), dot(half3(wTangent.z, wBitangent.z, wNormal.z), normals));
+//}
+
+//half3 GetMapNormal(inout appdata_full v)
+//{
+//	fixed3 normalMap = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
+////	fixed3 normalMap = tex2Dlod(_Normals, v.texcoord);
+////	normalMap.r = normalMap.r * 2 - 1;
+////	normalMap.g = normalMap.g * 2 - 1;
+////	normalMap.b = normalMap.b * 2 - 1;
+//    float3 oSWorldNormal = mul((float3x3)unity_ObjectToWorld, v.normal);
+//    float4 oTangent = mul(unity_ObjectToWorld, v.tangent);
+//
+//    float3 tangent = normalize(oTangent.xyz);
+//    float3 normal = normalize(oSWorldNormal);
+//    float3 binormal = normalize(cross(normal, tangent) * oTangent.w);
+//    float3x3 tangentToWorld = transpose(float3x3(tangent, binormal, normal));
+//    float3 dir = mul(tangentToWorld, normalMap);
+//
+//    return dir;
+//}
 
 half3 GetMapNormal(inout appdata_full v)
 {
-	fixed3 normalMap = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
-//	fixed3 normalMap = tex2Dlod(_Normals, v.texcoord);
-//	normalMap.r = normalMap.r * 2 - 1;
-//	normalMap.g = normalMap.g * 2 - 1;
-//	normalMap.b = normalMap.b * 2 - 1;
-    float3 oSWorldNormal = mul((float3x3)unity_ObjectToWorld, v.normal);
-    float4 oTangent = mul(unity_ObjectToWorld, v.tangent);
+//	half3 wNormal = UnityObjectToWorldNormal(v.normal);
+//    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
+	half3 wNormal = v.normal;
+    half3 wTangent = v.tangent.xyz;
 
-    float3 tangent = normalize(oTangent.xyz);
-    float3 normal = normalize(oSWorldNormal);
-    float3 binormal = normalize(cross(normal, tangent) * oTangent.w);
-    float3x3 tangentToWorld = transpose(float3x3(tangent, binormal, normal));
-    float3 dir = mul(tangentToWorld, normalMap);
+    half tangentSign = v.tangent.w * unity_WorldTransformParams.w;
+    half3 wBitangent = cross(wNormal, wTangent) * tangentSign;
 
-    return dir;
+    half3 tspace0 = half3(wTangent.x, wBitangent.x, wNormal.x);
+   	half3 tspace1 = half3(wTangent.y, wBitangent.y, wNormal.y);
+   	half3 tspace2 = half3(wTangent.z, wBitangent.z, wNormal.z);
+
+//	half3 tnormal = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
+	half3 tnormal = tex2Dlod(_Normals, v.texcoord);// * 2;
+	tnormal -= 0.25f;	// I don't understand what's going on here
+	tnormal *= 2;
+//	tnormal.x -= 1;
+//	tnormal.y -= 1;
+//	tnormal.z -= 1;
+//	tnormal *= 5;
+
+	half3 worldNormal;
+    worldNormal.x = dot(tspace0, tnormal);
+    worldNormal.y = dot(tspace1, tnormal);
+    worldNormal.z = dot(tspace2, tnormal);
+
+    return worldNormal;
 }
 
 void vert (inout appdata_full v)
@@ -61,12 +105,12 @@ void vert (inout appdata_full v)
 	fixed3 forceDir = _Gravity;
 
 	fixed3 n = v.normal;
-//	#ifdef _NORMINFENABLE_ON
-//		half3 mapNormal = GetMapNormal(v);
-//		n = lerp(n, mapNormal, _NormInf);
-//		forceDir = lerp(forceDir, mapNormal, _NormInfTip);
-//	#else
-//	#endif
+	#ifdef _NORMINFENABLE_ON
+		half3 mapNormal = GetMapNormal(v);
+		n = lerp(n, mapNormal, _NormInf);
+		forceDir = lerp(forceDir, mapNormal, _NormInfTip);
+	#else
+	#endif
 
 	forceDir *= _GravityStrength;
 

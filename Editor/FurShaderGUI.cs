@@ -10,7 +10,7 @@ namespace UnityEditor
 		{
 			public static GUIContent fadeText = new GUIContent("Fade Rendering");
 			public static GUIContent mainTexText = new GUIContent("Albedo/Alpha");
-			public static GUIContent normalText = new GUIContent("Normal");
+			public static GUIContent normalText = new GUIContent("Flow Map");
 			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
 			public static GUIContent noiseTexText = new GUIContent("Noise Alpha");
 			public static GUIContent smoothText = new GUIContent("Smoothness");
@@ -157,12 +157,12 @@ namespace UnityEditor
 			m_MaterialEditor.ShaderProperty(gravity, Styles.gravityText);
 			m_MaterialEditor.ShaderProperty(gravityStr, Styles.gravityStrText);
 
-//			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnableText);
-//			if(material.GetFloat("_NormInfEnable") == 1.0f)
-//			{
-//				m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
-//				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTipText);
-//			}
+			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnableText);
+			if(material.GetFloat("_NormInfEnable") == 1.0f)
+			{
+				m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
+				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTipText);
+			}
 			
 			EditorGUILayout.Space();
 

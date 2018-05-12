@@ -41,9 +41,9 @@
 	SubShader {
 		Tags { "Queue"="AlphaTest" "RenderType"="TransparentCutout" }
 		LOD 200
-		Cull Back
 
 
+		Cull Off
         Blend One Zero
         ZWrite On
 
@@ -54,6 +54,7 @@
 		ENDCG
 
 
+		Cull Back
         Blend [_SrcBlend] [_DstBlend]
         ZWrite [_ZWrite]
 

@@ -10,7 +10,7 @@ fixed4 _Color;
 sampler2D _MainTex;
 sampler2D _Normals;
 half _NormalStr;
-half _AlphaMult;
+//half _AlphaMult;
 sampler2D _NoiseTex;
 half _NoiseMult;
 half _Smoothness;
@@ -124,8 +124,10 @@ void vert (inout appdata_full v)
 	#else
 	#endif
 
+	half furLength = _FurLength * tex2Dlod(_MainTex, v.texcoord).w;
+
 	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), FUR_MULTIPLIER);
-	v.vertex.xyz += v.normal * _Offset + direction * _FurLength * FUR_MULTIPLIER * v.color.a;
+	v.vertex.xyz += v.normal * _Offset + direction * furLength * FUR_MULTIPLIER * v.color.a;
 }
 
 struct Input {
@@ -147,9 +149,10 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 		lerp(1,
 			tex2D (_StrandTex, fixed2(FUR_MULTIPLIER, 0.5f)),
 			_StrandColorStrength);
-	o.Alpha = lerp(1, c.a, _AlphaMult);
+//	o.Alpha = lerp(1, c.a, _AlphaMult);
 
-	o.Alpha *= lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
+//	o.Alpha *= lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
+	o.Alpha = lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
 
 	#ifdef _FADE_ON
 		o.Alpha = step(lerp(_Cutoff, _CutoffEnd, FUR_MULTIPLIER), o.Alpha);

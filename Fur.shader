@@ -8,7 +8,7 @@
 		_MainTex ("Albedo", 2D) = "white" {}
 		_Normals ("Normal Map", 2D) = "bump" {}
 		_NormalStr ("Normal Strength", Range(0,1)) = 1
-		_AlphaMult ("Alpha Strength", Range(0,1)) = 1
+//		_AlphaMult ("Alpha Strength", Range(0,1)) = 1
 		_NoiseTex ("Noise", 2D) = "white" {}
 		_NoiseMult ("Noise Strength", Range(0,1)) = 1
 		_Smoothness ("Smoothness", Range(0,1)) = 0.5

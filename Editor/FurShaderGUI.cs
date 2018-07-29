@@ -9,7 +9,7 @@ namespace UnityEditor
 		private static class Styles
 		{
 			public static GUIContent fadeText = new GUIContent("Fade Rendering");
-			public static GUIContent mainTexText = new GUIContent("Albedo/Alpha");
+			public static GUIContent mainTexText = new GUIContent("Albedo/Length");
 			public static GUIContent normalText = new GUIContent("Flow Map");
 			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
 			public static GUIContent noiseTexText = new GUIContent("Noise Alpha");
@@ -62,6 +62,7 @@ namespace UnityEditor
 		MaterialProperty normInf = null;
 		MaterialProperty strand = null;
 		MaterialProperty strandStr = null;
+//		MaterialProperty strandScrStr = null;
 		MaterialProperty windCloud = null;
 		MaterialProperty windDir = null;
 
@@ -79,9 +80,9 @@ namespace UnityEditor
 			mainTex = FindProperty("_MainTex", props);
 			normal = FindProperty("_Normals", props);
 			normalStr = FindProperty("_NormalStr", props);
-			alphaStr = FindProperty("_AlphaMult", props);
+//			alphaStr = FindProperty("_AlphaMult", props);
 			noiseTex = FindProperty("_NoiseTex", props);
-			noiseStr = FindProperty("_NoiseMult", props);
+//			noiseStr = FindProperty("_NoiseMult", props);
 			smooth = FindProperty("_Smoothness", props);
 			metal = FindProperty("_Metallic", props);
 			ao = FindProperty("_AO", props);
@@ -96,6 +97,7 @@ namespace UnityEditor
 			normInf = FindProperty("_NormInf", props);
 			strand = FindProperty("_StrandTex", props);
 			strandStr = FindProperty("_StrandColorStrength", props);
+//			strandScrStr = FindProperty("_StrandColorScreenStrength", props);
 			windEnable = FindProperty("_Wind", props);
 			windCloud = FindProperty("_WindCloud", props);
 			windDir = FindProperty("_WindDir", props);
@@ -126,7 +128,9 @@ namespace UnityEditor
 
 			// PRIMARY MAPS
 			GUILayout.Label(Styles.primaryMapsText, EditorStyles.boldLabel);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, alphaStr, color);
+//			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, alphaStr, color);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, color);
+
 			m_MaterialEditor.TexturePropertySingleLine(Styles.normalText, normal, normalStr);
 //			m_MaterialEditor.TextureScaleOffsetProperty(mainTex);
 //			m_MaterialEditor.ShaderProperty(alphaStr, Styles.alphaStrText);
@@ -139,6 +143,7 @@ namespace UnityEditor
 
 			// NOISE ALPHA
 //			GUILayout.Label(Styles.noiseMapsText, EditorStyles.boldLabel);
+//			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
 			if(material.GetTexture("_NoiseTex") != null)
 				m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);

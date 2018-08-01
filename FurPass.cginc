@@ -19,6 +19,7 @@ half _AOColor;
 half _AO;
 
 uniform float _FurLength;
+uniform float _ThicknessCurve;
 uniform float _Offset;
 uniform float _Cutoff;
 uniform float _CutoffEnd;
@@ -125,9 +126,10 @@ void vert (inout appdata_full v)
 	#endif
 
 	half furLength = _FurLength * tex2Dlod(_MainTex, v.texcoord).w;
+	half perc = lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), _ThicknessCurve);
 
-	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), FUR_MULTIPLIER);
-	v.vertex.xyz += v.normal * _Offset + direction * furLength * FUR_MULTIPLIER * v.color.a;
+	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), perc);
+	v.vertex.xyz += v.normal * _Offset + direction * furLength * perc * v.color.a;
 }
 
 struct Input {
@@ -138,16 +140,20 @@ struct Input {
 
 void surf (Input IN, inout SurfaceOutputStandard o)
 {
+
+	half perc = lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), _ThicknessCurve);
+
+
 	fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 
 
-	o.Metallic = _Metallic * FUR_MULTIPLIER * FUR_MULTIPLIER;
-	o.Smoothness = _Smoothness * FUR_MULTIPLIER * FUR_MULTIPLIER;
+	o.Metallic = _Metallic * perc * perc;
+	o.Smoothness = _Smoothness * perc * perc;
 
 
 	o.Albedo = c.rgb *
 		lerp(1,
-			tex2D (_StrandTex, fixed2(FUR_MULTIPLIER, 0.5f)),
+			tex2D (_StrandTex, fixed2(perc, 0.5f)),
 			_StrandColorStrength);
 //	o.Alpha = lerp(1, c.a, _AlphaMult);
 
@@ -155,16 +161,16 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 	o.Alpha = lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
 
 	#ifdef _FADE_ON
-		o.Alpha = step(lerp(_Cutoff, _CutoffEnd, FUR_MULTIPLIER), o.Alpha);
+		o.Alpha = step(lerp(_Cutoff, _CutoffEnd, perc), o.Alpha);
 		float alpha = dot(IN.viewDir, o.Normal);
-		alpha *= 1 - (FUR_MULTIPLIER * FUR_MULTIPLIER);
+		alpha *= 1 - (perc * perc);
 		alpha = 1 - 2 * _EdgeFade * (1 - alpha);
 		o.Alpha *= alpha;
 		o.Albedo *= o.Alpha;
 		o.Smoothness *= o.Alpha;
 		clip(o.Alpha - 0.01);
 	#else
-		clip(o.Alpha - lerp(_Cutoff, _CutoffEnd, FUR_MULTIPLIER));
+		clip(o.Alpha - lerp(_Cutoff, _CutoffEnd, perc));
 	#endif
 
 	o.Normal = lerp(o.Normal, UnpackNormal(tex2D(_Normals, IN.uv_MainTex)), _NormalStr);

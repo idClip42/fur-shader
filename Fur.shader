@@ -17,6 +17,7 @@
 		_AOColor("Ambient Occlusion From Color", Range(0,1)) = 0.0
 
 		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
+		_ThicknessCurve ("Thickness Curve", Range(0,1)) = 0.0
 		_Offset ("Fur Offset", Range(-0.25, 0.25)) = 0
 		_Cutoff ("Alpha cutoff", Range(0,1)) = 0
 		_CutoffEnd ("Alpha cutoff end", Range(0,1)) = 0.5

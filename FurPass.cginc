@@ -18,6 +18,9 @@ half _Metallic;
 half _AOColor;
 half _AO;
 
+sampler2D _NoiseColorTex;
+fixed4 _NoiseColorColor;
+
 uniform float _FurLength;
 uniform float _ThicknessCurve;
 uniform float _Offset;
@@ -135,6 +138,7 @@ void vert (inout appdata_full v)
 struct Input {
 	float2 uv_MainTex;
 	float2 uv_NoiseTex;
+	float2 uv_NoiseColorTex;
 	float3 viewDir;
 };
 
@@ -156,6 +160,8 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 			tex2D (_StrandTex, fixed2(perc, 0.5f)),
 			_StrandColorStrength);
 //	o.Alpha = lerp(1, c.a, _AlphaMult);
+
+	o.Albedo += tex2D (_NoiseColorTex, IN.uv_NoiseColorTex) * _NoiseColorColor;
 
 //	o.Alpha *= lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
 	o.Alpha = lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);

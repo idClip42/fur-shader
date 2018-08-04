@@ -9,8 +9,13 @@
 		_Normals ("Normal Map", 2D) = "bump" {}
 		_NormalStr ("Normal Strength", Range(0,1)) = 1
 //		_AlphaMult ("Alpha Strength", Range(0,1)) = 1
+
 		_NoiseTex ("Noise", 2D) = "white" {}
 		_NoiseMult ("Noise Strength", Range(0,1)) = 1
+
+		_NoiseColorTex ("Noise Color Tex", 2D) = "black" {}
+		_NoiseColorColor ("Noise Color", Color) = (1,1,1,1)
+
 		_Smoothness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_AO("Ambient Occlusion Strength", Range(0,1)) = 1.0

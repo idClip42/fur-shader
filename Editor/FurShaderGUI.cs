@@ -13,6 +13,7 @@ namespace UnityEditor
 			public static GUIContent normalText = new GUIContent("Flow Map");
 			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
 			public static GUIContent noiseTexText = new GUIContent("Noise Alpha");
+			public static GUIContent noiseColorText = new GUIContent("Noise Color");
 			public static GUIContent smoothText = new GUIContent("Smoothness");
 			public static GUIContent metalText = new GUIContent("Metallic");
 			public static GUIContent aoText = new GUIContent("AO Value");
@@ -49,6 +50,8 @@ namespace UnityEditor
 		MaterialProperty alphaStr = null;
 		MaterialProperty noiseTex = null;
 		MaterialProperty noiseStr = null;
+		MaterialProperty noiseColorTex = null;
+		MaterialProperty noiseColor = null;
 		MaterialProperty smooth = null;
 		MaterialProperty metal = null;
 		MaterialProperty ao = null;
@@ -85,6 +88,10 @@ namespace UnityEditor
 //			alphaStr = FindProperty("_AlphaMult", props);
 			noiseTex = FindProperty("_NoiseTex", props);
 //			noiseStr = FindProperty("_NoiseMult", props);
+
+			noiseColorTex = FindProperty("_NoiseColorTex", props);
+			noiseColor = FindProperty("_NoiseColorColor", props);
+
 			smooth = FindProperty("_Smoothness", props);
 			metal = FindProperty("_Metallic", props);
 			ao = FindProperty("_AO", props);
@@ -150,6 +157,12 @@ namespace UnityEditor
 			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
 			if(material.GetTexture("_NoiseTex") != null)
 				m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+
+			// NOISE COLOR
+			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseColorText, noiseColorTex, noiseColor);
+			if(material.GetTexture("_NoiseColorTex") != null)
+				m_MaterialEditor.TextureScaleOffsetProperty(noiseColorTex);
+
 
 			EditorGUILayout.Space();
 			// FUR SHAPE

@@ -1,25 +1,16 @@
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
 #pragma target 3.0
 
 fixed4 _Color;
 sampler2D _MainTex;
 sampler2D _Normals;
 half _NormalStr;
-//half _AlphaMult;
 sampler2D _NoiseTex;
-half _NoiseMult;
+sampler2D _StrandTex;
+uniform float _StrandColorStrength;
+
 half _Smoothness;
 half _Metallic;
-half _AOColor;
 half _AO;
-
-sampler2D _NoiseColorTex;
-fixed4 _NoiseColorColor;
 
 uniform float _FurLength;
 uniform float _ThicknessCurve;
@@ -27,76 +18,39 @@ uniform float _Offset;
 uniform float _Cutoff;
 uniform float _CutoffEnd;
 uniform float _EdgeFade;
-uniform half _NormInf;
-uniform half _NormInfTip;
+
+uniform float _FirstLayer;
+fixed4 _SecondLayerColor;
+sampler2D _SecondLayerTex;
+sampler2D _SecondLayerNoise;
+sampler2D _SecondLayerStrandTex;
+uniform float _SecondLayerStrandColorStrength;
 
 uniform fixed3 _Gravity;
 uniform fixed _GravityStrength;
 
-sampler2D _StrandTex;
-uniform float _StrandColorStrength;
+uniform half _NormInf;
+uniform half _NormInfTip;
 
 sampler2D _WindCloud;
 fixed4 _WindDir;
 
-half _Fade;
-
-// Is this necessary?
-#include "UnityCG.cginc"
-
-//half3 GetMapNormal(inout appdata_full v)
-//{
-////	fixed3 normals = tex2Dlod(_Normals, v.texcoord);
-//	fixed3 normals = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
-//    half3 wNormal = UnityObjectToWorldNormal(v.normal.xyz);
-//    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
-//    half3 wBitangent = cross(wNormal, wTangent) * v.tangent.w * unity_WorldTransformParams.w;
-//	return half3(dot(half3(wTangent.x, wBitangent.x, wNormal.x), normals), dot(half3(wTangent.y, wBitangent.y, wNormal.y), normals), dot(half3(wTangent.z, wBitangent.z, wNormal.z), normals));
-//}
-
-//half3 GetMapNormal(inout appdata_full v)
-//{
-//	fixed3 normalMap = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
-////	fixed3 normalMap = tex2Dlod(_Normals, v.texcoord);
-////	normalMap.r = normalMap.r * 2 - 1;
-////	normalMap.g = normalMap.g * 2 - 1;
-////	normalMap.b = normalMap.b * 2 - 1;
-//    float3 oSWorldNormal = mul((float3x3)unity_ObjectToWorld, v.normal);
-//    float4 oTangent = mul(unity_ObjectToWorld, v.tangent);
-//
-//    float3 tangent = normalize(oTangent.xyz);
-//    float3 normal = normalize(oSWorldNormal);
-//    float3 binormal = normalize(cross(normal, tangent) * oTangent.w);
-//    float3x3 tangentToWorld = transpose(float3x3(tangent, binormal, normal));
-//    float3 dir = mul(tangentToWorld, normalMap);
-//
-//    return dir;
-//}
 
 half3 GetMapNormal(inout appdata_full v)
 {
-//	half3 wNormal = UnityObjectToWorldNormal(v.normal);
-//    half3 wTangent = UnityObjectToWorldDir(v.tangent.xyz);
 	half3 wNormal = v.normal;
     half3 wTangent = v.tangent.xyz;
 
-    half tangentSign = v.tangent.w;// * unity_WorldTransformParams.w;
-//    tangentSign *= -1;
+    half tangentSign = v.tangent.w;
     half3 wBitangent = cross(wNormal, wTangent) * tangentSign;
 
     half3 tspace0 = half3(wTangent.x, wBitangent.x, wNormal.x);
    	half3 tspace1 = half3(wTangent.y, wBitangent.y, wNormal.y);
    	half3 tspace2 = half3(wTangent.z, wBitangent.z, wNormal.z);
 
-//	half3 tnormal = UnpackNormal(tex2Dlod(_Normals, v.texcoord));
-	half3 tnormal = tex2Dlod(_Normals, v.texcoord);// * 2;
-	tnormal -= 0.5f;	// I don't understand what's going on here
+	half3 tnormal = tex2Dlod(_Normals, v.texcoord);
+	tnormal -= 0.5f;
 	tnormal *= 2;
-//	tnormal = 1 - tnormal;	// Is this a needed thing?
-//	tnormal.x -= 1;
-//	tnormal.y -= 1;
-//	tnormal.z -= 1;
-//	tnormal *= 5;
 
 	half3 worldNormal;
     worldNormal.x = dot(tspace0, tnormal);
@@ -138,7 +92,7 @@ void vert (inout appdata_full v)
 struct Input {
 	float2 uv_MainTex;
 	float2 uv_NoiseTex;
-	float2 uv_NoiseColorTex;
+	float2 uv_SecondLayerNoise;
 	float3 viewDir;
 };
 
@@ -148,23 +102,31 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 	half perc = lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), _ThicknessCurve);
 
 
-	fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+	o.Albedo = tex2D (_MainTex, IN.uv_MainTex).rgb * _Color;
+	o.Albedo *= lerp(1,
+		tex2D (_StrandTex, fixed2(perc, 0.5f)),
+		_StrandColorStrength);
 
 
 	o.Metallic = _Metallic * perc * perc;
 	o.Smoothness = _Smoothness * perc * perc;
 
 
-	o.Albedo = c.rgb *
-		lerp(1,
-			tex2D (_StrandTex, fixed2(perc, 0.5f)),
-			_StrandColorStrength);
-//	o.Alpha = lerp(1, c.a, _AlphaMult);
+	
+	o.Alpha = tex2D (_NoiseTex, IN.uv_NoiseTex).r;
 
-	o.Albedo += tex2D (_NoiseColorTex, IN.uv_NoiseColorTex) * _NoiseColorColor;
 
-//	o.Alpha *= lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
-	o.Alpha = lerp(1, (tex2D (_NoiseTex, IN.uv_NoiseTex)).r, _NoiseMult);
+	#ifdef _SECONDLAYER_ON
+		fixed3 a2 = tex2D (_SecondLayerNoise, IN.uv_SecondLayerNoise).rgb;
+		fixed3 c2 = tex2D (_SecondLayerTex, IN.uv_MainTex).rgb * _SecondLayerColor;
+		o.Alpha = lerp(o.Alpha * _FirstLayer, a2, a2);
+		o.Albedo = lerp(o.Albedo, c2, a2);
+		o.Albedo *= lerp(1,
+			tex2D (_SecondLayerStrandTex, fixed2(perc, 0.5f)),
+			_SecondLayerStrandColorStrength);
+	#else
+	#endif
+
 
 	#ifdef _FADE_ON
 		o.Alpha = step(lerp(_Cutoff, _CutoffEnd, perc), o.Alpha);
@@ -181,5 +143,5 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 
 	o.Normal = lerp(o.Normal, UnpackNormal(tex2D(_Normals, IN.uv_MainTex)), _NormalStr);
 
-	o.Occlusion = lerp(1, o.Albedo, _AOColor) * _AO;
+	o.Occlusion = lerp(1, FUR_MULTIPLIER, _AO);
 }

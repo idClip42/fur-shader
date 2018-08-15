@@ -8,72 +8,74 @@ namespace UnityEditor
 
 		private static class Styles
 		{
-			public static GUIContent fadeText = new GUIContent("Fade Rendering");
-			public static GUIContent mainTexText = new GUIContent("Albedo/Length");
-			public static GUIContent normalText = new GUIContent("Flow Map");
-			public static GUIContent alphaStrText = new GUIContent("Alpha Strength");
-			public static GUIContent noiseTexText = new GUIContent("Noise Alpha");
-			public static GUIContent noiseColorText = new GUIContent("Noise Color");
-			public static GUIContent smoothText = new GUIContent("Smoothness");
-			public static GUIContent metalText = new GUIContent("Metallic");
-			public static GUIContent aoText = new GUIContent("AO Value");
-			public static GUIContent aoColorText = new GUIContent("AO From Color");
-			public static GUIContent lengthText = new GUIContent("Fur Length");
-			public static GUIContent thickCurveText = new GUIContent("Fur Thickness Curve");
-			public static GUIContent offsetText = new GUIContent("Fur Offset");
-			public static GUIContent cutoffText = new GUIContent("Alpha Cutoff");
-			public static GUIContent cutoffEndText = new GUIContent("Alpha Cutoff End");
-			public static GUIContent edgeFadeText = new GUIContent("Edge Fade");
-			public static GUIContent gravityText = new GUIContent("Gravity direction");
-			public static GUIContent gravityStrText = new GUIContent("Gravity strength");
-			public static GUIContent normInfText = new GUIContent("Normal Map Base Influence");
-			public static GUIContent normInfTipText = new GUIContent("Normal Map Tip Influence");
-			public static GUIContent strandText = new GUIContent("Strand Colors");
-			public static GUIContent strandStrText = new GUIContent("Strand Color Multiply Strength");
-			public static GUIContent windCloudText = new GUIContent("Cloud, Direction, Speed");
+			public static GUIContent tex = new GUIContent("Texture");
+			public static GUIContent norm = new GUIContent("Normals");
+			public static GUIContent noise = new GUIContent("Noise");
+			public static GUIContent gradient = new GUIContent("Strand");
 
-			public static GUIContent normInfEnableText = new GUIContent("Enable Normal Influence");
-			public static GUIContent windEnableText = new GUIContent("Enable Wind");
+			public static GUIContent smooth = new GUIContent("Smoothness");
+			public static GUIContent metal = new GUIContent("Metallic");
+			public static GUIContent ao = new GUIContent("Occlusion");
 
-			public static string primaryMapsText = "Main Maps";
-			public static string noiseMapsText = "Noise Alpha";
-			public static string furShapeText = "Fur Shape";
-			public static string strandsText = "Strands";
-			public static string windText = "Wind";
+			public static GUIContent enable2 = new GUIContent("Second Layer");
+			public static GUIContent layer1 = new GUIContent("First Layer Length");
+
+			public static GUIContent length = new GUIContent("Length");
+			public static GUIContent curve = new GUIContent("Thickness Curve");
+			public static GUIContent offset = new GUIContent("Offset");
+			public static GUIContent cutoffBase = new GUIContent("Base Cutoff");
+			public static GUIContent cutoffTip = new GUIContent("Tip Cutoff");
+			public static GUIContent edgeFade = new GUIContent("Edge Fade");
+			public static GUIContent gravDir = new GUIContent("Gravity Direction");
+			public static GUIContent gravStr = new GUIContent("Gravity Strength");
+
+			public static GUIContent normInfEnable = new GUIContent("Normal Influence");
+			public static GUIContent normInf = new GUIContent("Base Influence");
+			public static GUIContent normInfTip = new GUIContent("Tip Influence");
+
+			public static GUIContent windEnable = new GUIContent("Wind");
+			public static GUIContent wind = new GUIContent("Cloud, Direction, Speed");
 		}
 
 		MaterialProperty fade = null;
+
 		MaterialProperty color = null;
 		MaterialProperty mainTex = null;
 		MaterialProperty normal = null;
 		MaterialProperty normalStr = null;
-		MaterialProperty alphaStr = null;
 		MaterialProperty noiseTex = null;
-		MaterialProperty noiseStr = null;
-		MaterialProperty noiseColorTex = null;
-		MaterialProperty noiseColor = null;
+		MaterialProperty strand = null;
+		MaterialProperty strandStr = null;
+
 		MaterialProperty smooth = null;
 		MaterialProperty metal = null;
 		MaterialProperty ao = null;
-		MaterialProperty aoColor = null;
+
+		MaterialProperty enable2 = null;
+		MaterialProperty layer1 = null;
+		MaterialProperty color2 = null;
+		MaterialProperty tex2 = null;
+		MaterialProperty noise2 = null;
+		MaterialProperty strand2 = null;
+		MaterialProperty strandStr2 = null;
+
 		MaterialProperty length = null;
 		MaterialProperty thickCurve = null;
 		MaterialProperty offset = null;
 		MaterialProperty cutoff = null;
 		MaterialProperty cutoffEnd = null;
 		MaterialProperty edgeFade = null;
+
 		MaterialProperty gravity  = null;
 		MaterialProperty gravityStr = null;
-		MaterialProperty normInf = null;
-		MaterialProperty strand = null;
-		MaterialProperty strandStr = null;
-//		MaterialProperty strandScrStr = null;
-		MaterialProperty windCloud = null;
-		MaterialProperty windDir = null;
 
 		MaterialProperty normInfEnable = null;
-		MaterialProperty windEnable = null;
+		MaterialProperty normInf = null;
 		MaterialProperty normInfTip = null;
+
+		MaterialProperty windEnable = null;
+		MaterialProperty windCloud = null;
+		MaterialProperty windDir = null;
 
 		MaterialEditor m_MaterialEditor;
 
@@ -81,38 +83,44 @@ namespace UnityEditor
 		public void FindProperties(MaterialProperty[] props)
 		{
 			fade = FindProperty("_Fade", props);
+
 			color = FindProperty("_Color", props);
 			mainTex = FindProperty("_MainTex", props);
 			normal = FindProperty("_Normals", props);
 			normalStr = FindProperty("_NormalStr", props);
-//			alphaStr = FindProperty("_AlphaMult", props);
 			noiseTex = FindProperty("_NoiseTex", props);
-//			noiseStr = FindProperty("_NoiseMult", props);
-
-			noiseColorTex = FindProperty("_NoiseColorTex", props);
-			noiseColor = FindProperty("_NoiseColorColor", props);
+			strand = FindProperty("_StrandTex", props);
+			strandStr = FindProperty("_StrandColorStrength", props);
 
 			smooth = FindProperty("_Smoothness", props);
 			metal = FindProperty("_Metallic", props);
 			ao = FindProperty("_AO", props);
-			aoColor = FindProperty("_AOColor", props);
+
+			enable2 = FindProperty("_SecondLayer", props);
+			layer1 = FindProperty("_FirstLayer", props);
+			color2 = FindProperty("_SecondLayerColor", props);
+			tex2 = FindProperty("_SecondLayerTex", props);
+			noise2 = FindProperty("_SecondLayerNoise", props);
+			strand2 = FindProperty("_SecondLayerStrandTex", props);
+			strandStr2 = FindProperty("_SecondLayerStrandColorStrength", props);
+
 			length = FindProperty("_FurLength", props);
 			thickCurve = FindProperty("_ThicknessCurve", props);
 			offset = FindProperty("_Offset", props);
 			cutoff = FindProperty("_Cutoff", props);
 			cutoffEnd = FindProperty("_CutoffEnd", props);
 			edgeFade = FindProperty("_EdgeFade", props);
+
 			gravity  = FindProperty("_Gravity", props);
 			gravityStr = FindProperty("_GravityStrength", props);
+
+			normInfEnable = FindProperty("_NormInfEnable", props);
 			normInf = FindProperty("_NormInf", props);
-			strand = FindProperty("_StrandTex", props);
-			strandStr = FindProperty("_StrandColorStrength", props);
-//			strandScrStr = FindProperty("_StrandColorScreenStrength", props);
+			normInfTip = FindProperty("_NormInfTip", props);
+
 			windEnable = FindProperty("_Wind", props);
 			windCloud = FindProperty("_WindCloud", props);
 			windDir = FindProperty("_WindDir", props);
-			normInfEnable = FindProperty("_NormInfEnable", props);
-			normInfTip = FindProperty("_NormInfTip", props);
 		}
 
 
@@ -130,85 +138,63 @@ namespace UnityEditor
 		{
 			EditorGUIUtility.labelWidth = 0f;
 
-			//EditorGUI.BeginChangeCheck();
-			//{
-
 			// FADE RENDERING
-			m_MaterialEditor.ShaderProperty(fade, Styles.fadeText);
+			m_MaterialEditor.ShaderProperty(fade, "Fade Rendering");
 
-			// PRIMARY MAPS
-			GUILayout.Label(Styles.primaryMapsText, EditorStyles.boldLabel);
-//			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, alphaStr, color);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.mainTexText, mainTex, color);
+			// PRIMARY COLORS
+			GUILayout.Label("Primary Textures", EditorStyles.boldLabel);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.tex, mainTex, color);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.norm, normal, normalStr);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noiseTex);
+			m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
 
-			m_MaterialEditor.TexturePropertySingleLine(Styles.normalText, normal, normalStr);
-//			m_MaterialEditor.TextureScaleOffsetProperty(mainTex);
-//			m_MaterialEditor.ShaderProperty(alphaStr, Styles.alphaStrText);
-//			m_MaterialEditor.ShaderProperty(noiseStr, Styles.noiseStrText);
-			m_MaterialEditor.ShaderProperty(smooth, Styles.smoothText);
-			m_MaterialEditor.ShaderProperty(metal, Styles.metalText);
-			m_MaterialEditor.ShaderProperty(ao, Styles.aoText);
-			m_MaterialEditor.ShaderProperty(aoColor, Styles.aoColorText);
-//			EditorGUI.BeginChangeCheck();
+			m_MaterialEditor.ShaderProperty(enable2, Styles.enable2);
+			if(material.GetFloat("_SecondLayer") == 1.0f)
+			{
+				GUILayout.Label("Second Layer Textures", EditorStyles.boldLabel);
+				m_MaterialEditor.ShaderProperty(layer1, Styles.layer1);
+				m_MaterialEditor.TexturePropertySingleLine(Styles.tex, tex2, color2);
+				m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noise2);
+				m_MaterialEditor.TextureScaleOffsetProperty(noise2);
+			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand2, strandStr2);
+			}
 
-			// NOISE ALPHA
-//			GUILayout.Label(Styles.noiseMapsText, EditorStyles.boldLabel);
-//			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseTexText, noiseTex, noiseStr);
-			if(material.GetTexture("_NoiseTex") != null)
-				m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+			// PROPERTIES
+			GUILayout.Label("Material Properties", EditorStyles.boldLabel);
+			m_MaterialEditor.ShaderProperty(smooth, Styles.smooth);
+			m_MaterialEditor.ShaderProperty(metal, Styles.metal);
+			m_MaterialEditor.ShaderProperty(ao, Styles.ao);
 
-			// NOISE COLOR
-			m_MaterialEditor.TexturePropertySingleLine(Styles.noiseColorText, noiseColorTex, noiseColor);
-			if(material.GetTexture("_NoiseColorTex") != null)
-				m_MaterialEditor.TextureScaleOffsetProperty(noiseColorTex);
-
-
-			EditorGUILayout.Space();
 			// FUR SHAPE
-			GUILayout.Label(Styles.furShapeText, EditorStyles.boldLabel);
-			m_MaterialEditor.ShaderProperty(length, Styles.lengthText);
-			m_MaterialEditor.ShaderProperty(thickCurve, Styles.thickCurveText);
-			m_MaterialEditor.ShaderProperty(offset, Styles.offsetText);
-			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffText);
-			m_MaterialEditor.ShaderProperty(cutoffEnd, Styles.cutoffEndText);
-
+			GUILayout.Label("Fur Shape", EditorStyles.boldLabel);
+			m_MaterialEditor.ShaderProperty(length, Styles.length);
+			m_MaterialEditor.ShaderProperty(thickCurve, Styles.curve);
+			m_MaterialEditor.ShaderProperty(offset, Styles.offset);
+			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffBase);
+			m_MaterialEditor.ShaderProperty(cutoffEnd, Styles.cutoffTip);
 			if(material.GetFloat("_Fade") == 1.0f)
-				m_MaterialEditor.ShaderProperty(edgeFade, Styles.edgeFadeText);
+				m_MaterialEditor.ShaderProperty(edgeFade, Styles.edgeFade);
+			m_MaterialEditor.ShaderProperty(gravity, Styles.gravDir);
+			m_MaterialEditor.ShaderProperty(gravityStr, Styles.gravStr);
 
-			m_MaterialEditor.ShaderProperty(gravity, Styles.gravityText);
-			m_MaterialEditor.ShaderProperty(gravityStr, Styles.gravityStrText);
-
-			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnableText);
+			// NORMAL INFLUENCE
+			m_MaterialEditor.ShaderProperty(normInfEnable, Styles.normInfEnable);
 			if(material.GetFloat("_NormInfEnable") == 1.0f)
 			{
-				m_MaterialEditor.ShaderProperty(normInf, Styles.normInfText);
-				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTipText);
+				m_MaterialEditor.ShaderProperty(normInf, Styles.normInf);
+				m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTip);
 			}
-			
-			EditorGUILayout.Space();
-
-			// STRANDS
-			GUILayout.Label(Styles.strandsText, EditorStyles.boldLabel);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.strandText, strand, strandStr);
-//			m_MaterialEditor.ShaderProperty(strandStr, Styles.strandStrText);
-			//}
-			//if (EditorGUI.EndChangeCheck())
-			//{
-			//	//Debug.Log("Woo wee");
-//				foreach(var obj in fade.targets)
-//					SetupMaterialWithBlendMode((Material) obj, material.GetFloat("_Fade"));
-				SetupMaterialWithBlendMode(material, material.GetFloat("_Fade"));
-			//}
-			EditorGUILayout.Space();
 
 			// WIND
-			GUILayout.Label(Styles.windText, EditorStyles.boldLabel);
-			m_MaterialEditor.ShaderProperty(windEnable, Styles.windEnableText);
+			m_MaterialEditor.ShaderProperty(windEnable, Styles.windEnable);
 			if(material.GetFloat("_Wind") == 1.0f)
-				m_MaterialEditor.TexturePropertySingleLine(Styles.windCloudText, windCloud, windDir);
-
+				m_MaterialEditor.TexturePropertySingleLine(Styles.wind, windCloud, windDir);
 		}
+
+
+
+		
 
 		public static void SetupMaterialWithBlendMode(Material material, float fade)
 		{

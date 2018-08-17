@@ -19,6 +19,7 @@ namespace UnityEditor
 
 			public static GUIContent enable2 = new GUIContent("Second Layer");
 			public static GUIContent layer1 = new GUIContent("First Layer Length");
+			public static GUIContent mask2 = new GUIContent("Second Layer Mask");
 
 			public static GUIContent length = new GUIContent("Length");
 			public static GUIContent curve = new GUIContent("Thickness Curve");
@@ -55,6 +56,7 @@ namespace UnityEditor
 		MaterialProperty layer1 = null;
 		MaterialProperty color2 = null;
 		MaterialProperty tex2 = null;
+		MaterialProperty mask2 = null;
 		MaterialProperty noise2 = null;
 		MaterialProperty strand2 = null;
 		MaterialProperty strandStr2 = null;
@@ -100,6 +102,7 @@ namespace UnityEditor
 			layer1 = FindProperty("_FirstLayer", props);
 			color2 = FindProperty("_SecondLayerColor", props);
 			tex2 = FindProperty("_SecondLayerTex", props);
+			mask2 = FindProperty("_SecondLayerMask", props);
 			noise2 = FindProperty("_SecondLayerNoise", props);
 			strand2 = FindProperty("_SecondLayerStrandTex", props);
 			strandStr2 = FindProperty("_SecondLayerStrandColorStrength", props);
@@ -155,6 +158,7 @@ namespace UnityEditor
 				GUILayout.Label("Second Layer Textures", EditorStyles.boldLabel);
 				m_MaterialEditor.ShaderProperty(layer1, Styles.layer1);
 				m_MaterialEditor.TexturePropertySingleLine(Styles.tex, tex2, color2);
+				m_MaterialEditor.TexturePropertySingleLine(Styles.mask2, mask2);
 				m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noise2);
 				m_MaterialEditor.TextureScaleOffsetProperty(noise2);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand2, strandStr2);
@@ -190,6 +194,9 @@ namespace UnityEditor
 			m_MaterialEditor.ShaderProperty(windEnable, Styles.windEnable);
 			if(material.GetFloat("_Wind") == 1.0f)
 				m_MaterialEditor.TexturePropertySingleLine(Styles.wind, windCloud, windDir);
+
+			// BLEND MODE
+			SetupMaterialWithBlendMode(material, material.GetFloat("_Fade"));	
 		}
 
 
@@ -199,6 +206,7 @@ namespace UnityEditor
 		public static void SetupMaterialWithBlendMode(Material material, float fade)
 		{
 			int fadeInt = Mathf.RoundToInt(fade);
+			Debug.Log(fadeInt);
 			switch (fadeInt)
 			{
 			case 0:
@@ -206,9 +214,9 @@ namespace UnityEditor
 				material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
 				material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
 				material.SetInt("_ZWrite", 1);
-//				material.EnableKeyword("_ALPHATEST_ON");
-//				material.DisableKeyword("_ALPHABLEND_ON");
-//				material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+				// material.EnableKeyword("_ALPHATEST_ON");
+				// material.DisableKeyword("_ALPHABLEND_ON");
+				// material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 				material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
 				break;
 			case 1:
@@ -216,9 +224,9 @@ namespace UnityEditor
 				material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
 				material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
 				material.SetInt("_ZWrite", 0);
-//				material.DisableKeyword("_ALPHATEST_ON");
-//				material.EnableKeyword("_ALPHABLEND_ON");
-//				material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+				// material.DisableKeyword("_ALPHATEST_ON");
+				// material.EnableKeyword("_ALPHABLEND_ON");
+				// material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 				material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
 				break;
 			}

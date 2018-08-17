@@ -22,6 +22,7 @@ uniform float _EdgeFade;
 uniform float _FirstLayer;
 fixed4 _SecondLayerColor;
 sampler2D _SecondLayerTex;
+sampler2D _SecondLayerMask;
 sampler2D _SecondLayerNoise;
 sampler2D _SecondLayerStrandTex;
 uniform float _SecondLayerStrandColorStrength;
@@ -117,13 +118,17 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 
 
 	#ifdef _SECONDLAYER_ON
-		fixed3 a2 = tex2D (_SecondLayerNoise, IN.uv_SecondLayerNoise).rgb;
+		// Get strength of second layer via noise and mask
+		fixed3 layerStr = tex2D (_SecondLayerNoise, IN.uv_SecondLayerNoise).rgb;
+		layerStr *= tex2D (_SecondLayerMask, IN.uv_MainTex).a;
+
+		// Get base color and gradent color of second layer
 		fixed3 c2 = tex2D (_SecondLayerTex, IN.uv_MainTex).rgb * _SecondLayerColor;
-		o.Alpha = lerp(o.Alpha * _FirstLayer, a2, a2);
-		o.Albedo = lerp(o.Albedo, c2, a2);
-		o.Albedo *= lerp(1,
-			tex2D (_SecondLayerStrandTex, fixed2(perc, 0.5f)),
-			_SecondLayerStrandColorStrength);
+		c2 *= lerp(1, tex2D (_SecondLayerStrandTex, fixed2(perc, 0.5f)), _SecondLayerStrandColorStrength);
+
+		// Apply second layer
+		o.Alpha = lerp(o.Alpha * _FirstLayer, layerStr, layerStr);
+		o.Albedo = lerp(o.Albedo, c2, layerStr);
 	#else
 	#endif
 

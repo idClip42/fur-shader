@@ -36,6 +36,7 @@
 		_FirstLayer ("First Layer Percentage", Range(0,1)) = 0.5
 		_SecondLayerColor ("Second Layer Color", Color) = (1,1,1,1)
 		_SecondLayerTex ("Second Layer Texture", 2D) = "white" {}
+		_SecondLayerMask ("Second Layer Mask", 2D) = "white" {}
 		_SecondLayerNoise ("Second Layer Noise", 2D) = "black" {}
 		_SecondLayerStrandTex ("Second Layer Strand Gradient", 2D) = "white" {}
 		_SecondLayerStrandColorStrength("Second Layer Strand Color Multiply Strength", Range(0,1)) = 0.5

@@ -52,14 +52,14 @@ namespace UnityEditor
 		MaterialProperty metal = null;
 		MaterialProperty ao = null;
 
-		MaterialProperty enable2 = null;
-		MaterialProperty layer1 = null;
-		MaterialProperty color2 = null;
-		MaterialProperty tex2 = null;
-		MaterialProperty mask2 = null;
-		MaterialProperty noise2 = null;
-		MaterialProperty strand2 = null;
-		MaterialProperty strandStr2 = null;
+		//MaterialProperty enable2 = null;
+		//MaterialProperty layer1 = null;
+		//MaterialProperty color2 = null;
+		//MaterialProperty tex2 = null;
+		//MaterialProperty mask2 = null;
+		//MaterialProperty noise2 = null;
+		//MaterialProperty strand2 = null;
+		//MaterialProperty strandStr2 = null;
 
 		MaterialProperty length = null;
 		MaterialProperty thickCurve = null;
@@ -98,14 +98,14 @@ namespace UnityEditor
 			metal = FindProperty("_Metallic", props);
 			ao = FindProperty("_AO", props);
 
-			enable2 = FindProperty("_SecondLayer", props);
-			layer1 = FindProperty("_FirstLayer", props);
-			color2 = FindProperty("_SecondLayerColor", props);
-			tex2 = FindProperty("_SecondLayerTex", props);
-			mask2 = FindProperty("_SecondLayerMask", props);
-			noise2 = FindProperty("_SecondLayerNoise", props);
-			strand2 = FindProperty("_SecondLayerStrandTex", props);
-			strandStr2 = FindProperty("_SecondLayerStrandColorStrength", props);
+			//enable2 = FindProperty("_SecondLayer", props);
+			//layer1 = FindProperty("_FirstLayer", props);
+			//color2 = FindProperty("_SecondLayerColor", props);
+			//tex2 = FindProperty("_SecondLayerTex", props);
+			//mask2 = FindProperty("_SecondLayerMask", props);
+			//noise2 = FindProperty("_SecondLayerNoise", props);
+			//strand2 = FindProperty("_SecondLayerStrandTex", props);
+			//strandStr2 = FindProperty("_SecondLayerStrandColorStrength", props);
 
 			length = FindProperty("_FurLength", props);
 			thickCurve = FindProperty("_ThicknessCurve", props);
@@ -152,17 +152,17 @@ namespace UnityEditor
 			m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
 
-			m_MaterialEditor.ShaderProperty(enable2, Styles.enable2);
-			if(material.GetFloat("_SecondLayer") == 1.0f)
-			{
-				GUILayout.Label("Second Layer Textures", EditorStyles.boldLabel);
-				m_MaterialEditor.ShaderProperty(layer1, Styles.layer1);
-				m_MaterialEditor.TexturePropertySingleLine(Styles.tex, tex2, color2);
-				m_MaterialEditor.TexturePropertySingleLine(Styles.mask2, mask2);
-				m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noise2);
-				m_MaterialEditor.TextureScaleOffsetProperty(noise2);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand2, strandStr2);
-			}
+			//m_MaterialEditor.ShaderProperty(enable2, Styles.enable2);
+			//if(material.GetFloat("_SecondLayer") == 1.0f)
+			//{
+			//	GUILayout.Label("Second Layer Textures", EditorStyles.boldLabel);
+			//	m_MaterialEditor.ShaderProperty(layer1, Styles.layer1);
+			//	m_MaterialEditor.TexturePropertySingleLine(Styles.tex, tex2, color2);
+			//	m_MaterialEditor.TexturePropertySingleLine(Styles.mask2, mask2);
+			//	m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noise2);
+			//	m_MaterialEditor.TextureScaleOffsetProperty(noise2);
+			//m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand2, strandStr2);
+			//}
 
 			// PROPERTIES
 			GUILayout.Label("Material Properties", EditorStyles.boldLabel);

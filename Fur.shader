@@ -31,15 +31,15 @@
 		_CutoffEnd ("Alpha cutoff tip", Range(0,1)) = 0.5
 		_EdgeFade ("Edge fade", Range(0,1)) = 0.5
 
-		// [Space]
-		// [Header(Second Layer)]
-		_FirstLayer ("First Layer Percentage", Range(0,1)) = 0.5
-		_SecondLayerColor ("Second Layer Color", Color) = (1,1,1,1)
-		_SecondLayerTex ("Second Layer Texture", 2D) = "white" {}
-		_SecondLayerMask ("Second Layer Mask", 2D) = "white" {}
-		_SecondLayerNoise ("Second Layer Noise", 2D) = "black" {}
-		_SecondLayerStrandTex ("Second Layer Strand Gradient", 2D) = "white" {}
-		_SecondLayerStrandColorStrength("Second Layer Strand Color Multiply Strength", Range(0,1)) = 0.5
+		//// [Space]
+		//// [Header(Second Layer)]
+		//_FirstLayer ("First Layer Percentage", Range(0,1)) = 0.5
+		//_SecondLayerColor ("Second Layer Color", Color) = (1,1,1,1)
+		//_SecondLayerTex ("Second Layer Texture", 2D) = "white" {}
+		//_SecondLayerMask ("Second Layer Mask", 2D) = "white" {}
+		//_SecondLayerNoise ("Second Layer Noise", 2D) = "black" {}
+		//_SecondLayerStrandTex ("Second Layer Strand Gradient", 2D) = "white" {}
+		//_SecondLayerStrandColorStrength("Second Layer Strand Color Multiply Strength", Range(0,1)) = 0.5
 
 		// [Space]
 		// [Header(Gravity)]
@@ -86,7 +86,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.05
 		#include "FurPass.cginc"
 		ENDCG
@@ -95,7 +95,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.10
 		#include "FurPass.cginc"
 		ENDCG
@@ -104,7 +104,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.15
 		#include "FurPass.cginc"
 		ENDCG
@@ -113,7 +113,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.20
 		#include "FurPass.cginc"
 		ENDCG
@@ -122,7 +122,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.25
 		#include "FurPass.cginc"
 		ENDCG
@@ -131,7 +131,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.30
 		#include "FurPass.cginc"
 		ENDCG
@@ -140,7 +140,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.35
 		#include "FurPass.cginc"
 		ENDCG
@@ -149,7 +149,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.40
 		#include "FurPass.cginc"
 		ENDCG
@@ -158,7 +158,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.45
 		#include "FurPass.cginc"
 		ENDCG
@@ -167,7 +167,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.50
 		#include "FurPass.cginc"
 		ENDCG
@@ -176,7 +176,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.55
 		#include "FurPass.cginc"
 		ENDCG
@@ -185,7 +185,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.60
 		#include "FurPass.cginc"
 		ENDCG
@@ -194,7 +194,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.65
 		#include "FurPass.cginc"
 		ENDCG
@@ -203,7 +203,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.70
 		#include "FurPass.cginc"
 		ENDCG
@@ -212,7 +212,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.75
 		#include "FurPass.cginc"
 		ENDCG
@@ -221,7 +221,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.80
 		#include "FurPass.cginc"
 		ENDCG
@@ -230,7 +230,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 		
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.85
 		#include "FurPass.cginc"
 		ENDCG
@@ -239,7 +239,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
- 		#pragma shader_feature _SECONDLAYER_ON
+ 		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.90
 		#include "FurPass.cginc"
 		ENDCG
@@ -248,7 +248,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON 
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 0.95
 		#include "FurPass.cginc"
 		ENDCG
@@ -257,7 +257,7 @@
 		#pragma shader_feature _FADE_ON
 		#pragma shader_feature _NORMINFENABLE_ON
 		#pragma shader_feature _WIND_ON
-		#pragma shader_feature _SECONDLAYER_ON
+		//#pragma shader_feature _SECONDLAYER_ON
 		#define FUR_MULTIPLIER 1.00
 		#include "FurPass.cginc"
 		ENDCG

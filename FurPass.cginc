@@ -1,4 +1,4 @@
-#pragma target 3.0
+//#pragma target 3.0
 
 fixed4 _Color;
 sampler2D _MainTex;
@@ -116,21 +116,23 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 	
 	o.Alpha = tex2D (_NoiseTex, IN.uv_NoiseTex).r;
 
+    
+    
+	//#ifdef _SECONDLAYER_ON
+	//	// Get strength of second layer via noise and mask
+	//	fixed3 layerStr = tex2D (_SecondLayerNoise, IN.uv_SecondLayerNoise).rgb;
+	//	layerStr *= tex2D (_SecondLayerMask, IN.uv_MainTex).a;
 
-	#ifdef _SECONDLAYER_ON
-		// Get strength of second layer via noise and mask
-		fixed3 layerStr = tex2D (_SecondLayerNoise, IN.uv_SecondLayerNoise).rgb;
-		layerStr *= tex2D (_SecondLayerMask, IN.uv_MainTex).a;
+	//	// Get base color and gradent color of second layer
+	//	fixed3 c2 = tex2D (_SecondLayerTex, IN.uv_MainTex).rgb * _SecondLayerColor;
+	//	c2 *= lerp(1, tex2D (_SecondLayerStrandTex, fixed2(perc, 0.5f)), _SecondLayerStrandColorStrength);
 
-		// Get base color and gradent color of second layer
-		fixed3 c2 = tex2D (_SecondLayerTex, IN.uv_MainTex).rgb * _SecondLayerColor;
-		c2 *= lerp(1, tex2D (_SecondLayerStrandTex, fixed2(perc, 0.5f)), _SecondLayerStrandColorStrength);
-
-		// Apply second layer
-		o.Alpha = lerp(o.Alpha * _FirstLayer, layerStr, layerStr);
-		o.Albedo = lerp(o.Albedo, c2, layerStr);
-	#else
-	#endif
+	//	// Apply second layer
+	//	o.Alpha = lerp(o.Alpha * _FirstLayer, layerStr, layerStr);
+	//	o.Albedo = lerp(o.Albedo, c2, layerStr);
+	//#else
+	//#endif
+    
 
 
 	#ifdef _FADE_ON

@@ -206,7 +206,7 @@ namespace UnityEditor
 		public static void SetupMaterialWithBlendMode(Material material, float fade)
 		{
 			int fadeInt = Mathf.RoundToInt(fade);
-			Debug.Log(fadeInt);
+			//Debug.Log(fadeInt);
 			switch (fadeInt)
 			{
 			case 0:

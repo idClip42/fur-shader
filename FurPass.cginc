@@ -13,6 +13,7 @@ half _Metallic;
 half _AO;
 
 uniform float _FurLength;
+uniform float _FurLengthMin;
 uniform float _ThicknessCurve;
 uniform float _Offset;
 uniform float _Cutoff;
@@ -83,7 +84,8 @@ void vert (inout appdata_full v)
 	#else
 	#endif
 
-	half furLength = _FurLength * tex2Dlod(_MainTex, v.texcoord).w;
+	//half furLength = _FurLength * tex2Dlod(_MainTex, v.texcoord).w;
+    half furLength = lerp(_FurLengthMin, _FurLength, tex2Dlod(_MainTex, v.texcoord).w);
 	half perc = lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), _ThicknessCurve);
 
 	fixed3 direction = lerp(n, forceDir + n * (1-_GravityStrength), perc);

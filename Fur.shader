@@ -25,6 +25,7 @@
 		// [Space]
 		// [Header(Fur Shape)]
 		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
+        _FurLengthMin ("Fur Length Minimum", Range (.0002, 0.25)) = 0.0
 		_ThicknessCurve ("Thickness Curve", Range(0,1)) = 0.0
 		_Offset ("Fur Offset", Range(-0.25, 0.25)) = 0
 		_Cutoff ("Alpha cutoff base", Range(0,1)) = 0

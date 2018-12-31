@@ -21,8 +21,9 @@ namespace UnityEditor
 			public static GUIContent layer1 = new GUIContent("First Layer Length");
 			public static GUIContent mask2 = new GUIContent("Second Layer Mask");
 
-			public static GUIContent length = new GUIContent("Length");
-			public static GUIContent curve = new GUIContent("Thickness Curve");
+            public static GUIContent length = new GUIContent("Length");
+            public static GUIContent lengthMin = new GUIContent("Length Min");
+            public static GUIContent curve = new GUIContent("Thickness Curve");
 			public static GUIContent offset = new GUIContent("Offset");
 			public static GUIContent cutoffBase = new GUIContent("Base Cutoff");
 			public static GUIContent cutoffTip = new GUIContent("Tip Cutoff");
@@ -52,17 +53,18 @@ namespace UnityEditor
 		MaterialProperty metal = null;
 		MaterialProperty ao = null;
 
-		//MaterialProperty enable2 = null;
-		//MaterialProperty layer1 = null;
-		//MaterialProperty color2 = null;
-		//MaterialProperty tex2 = null;
-		//MaterialProperty mask2 = null;
-		//MaterialProperty noise2 = null;
-		//MaterialProperty strand2 = null;
-		//MaterialProperty strandStr2 = null;
+        //MaterialProperty enable2 = null;
+        //MaterialProperty layer1 = null;
+        //MaterialProperty color2 = null;
+        //MaterialProperty tex2 = null;
+        //MaterialProperty mask2 = null;
+        //MaterialProperty noise2 = null;
+        //MaterialProperty strand2 = null;
+        //MaterialProperty strandStr2 = null;
 
-		MaterialProperty length = null;
-		MaterialProperty thickCurve = null;
+        MaterialProperty length = null;
+        MaterialProperty lengthMin = null;
+        MaterialProperty thickCurve = null;
 		MaterialProperty offset = null;
 		MaterialProperty cutoff = null;
 		MaterialProperty cutoffEnd = null;
@@ -98,17 +100,18 @@ namespace UnityEditor
 			metal = FindProperty("_Metallic", props);
 			ao = FindProperty("_AO", props);
 
-			//enable2 = FindProperty("_SecondLayer", props);
-			//layer1 = FindProperty("_FirstLayer", props);
-			//color2 = FindProperty("_SecondLayerColor", props);
-			//tex2 = FindProperty("_SecondLayerTex", props);
-			//mask2 = FindProperty("_SecondLayerMask", props);
-			//noise2 = FindProperty("_SecondLayerNoise", props);
-			//strand2 = FindProperty("_SecondLayerStrandTex", props);
-			//strandStr2 = FindProperty("_SecondLayerStrandColorStrength", props);
+            //enable2 = FindProperty("_SecondLayer", props);
+            //layer1 = FindProperty("_FirstLayer", props);
+            //color2 = FindProperty("_SecondLayerColor", props);
+            //tex2 = FindProperty("_SecondLayerTex", props);
+            //mask2 = FindProperty("_SecondLayerMask", props);
+            //noise2 = FindProperty("_SecondLayerNoise", props);
+            //strand2 = FindProperty("_SecondLayerStrandTex", props);
+            //strandStr2 = FindProperty("_SecondLayerStrandColorStrength", props);
 
-			length = FindProperty("_FurLength", props);
-			thickCurve = FindProperty("_ThicknessCurve", props);
+            length = FindProperty("_FurLength", props);
+            lengthMin = FindProperty("_FurLengthMin", props);
+            thickCurve = FindProperty("_ThicknessCurve", props);
 			offset = FindProperty("_Offset", props);
 			cutoff = FindProperty("_Cutoff", props);
 			cutoffEnd = FindProperty("_CutoffEnd", props);
@@ -136,8 +139,7 @@ namespace UnityEditor
 			ShaderPropertiesGUI(material);
 		}
 
-
-		public void ShaderPropertiesGUI(Material material)
+        public void ShaderPropertiesGUI(Material material)
 		{
 			EditorGUIUtility.labelWidth = 0f;
 
@@ -172,8 +174,12 @@ namespace UnityEditor
 
 			// FUR SHAPE
 			GUILayout.Label("Fur Shape", EditorStyles.boldLabel);
-			m_MaterialEditor.ShaderProperty(length, Styles.length);
-			m_MaterialEditor.ShaderProperty(thickCurve, Styles.curve);
+
+            m_MaterialEditor.ShaderProperty(length, Styles.length);
+            m_MaterialEditor.ShaderProperty(lengthMin, Styles.lengthMin);
+            //EditorGUILayout.MinMaxSlider("Testing", ref lengthMin.floatValue, ref length.floatValue, length.rangeLimits.x, length.rangeLimits.y);
+
+            m_MaterialEditor.ShaderProperty(thickCurve, Styles.curve);
 			m_MaterialEditor.ShaderProperty(offset, Styles.offset);
 			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffBase);
 			m_MaterialEditor.ShaderProperty(cutoffEnd, Styles.cutoffTip);

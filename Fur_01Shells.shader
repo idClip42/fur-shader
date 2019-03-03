@@ -58,7 +58,9 @@ Shader "Fur/Fur (01 Shells)" {
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature _FADE_ON
 		#define FUR_MULTIPLIER 1.00
-		#include "FurPass.cginc"
+		#include "FurPassProps.cginc" 
+        #include "FurPassVert.cginc" 
+        #include "FurPass.cginc"
 		ENDCG
 
 

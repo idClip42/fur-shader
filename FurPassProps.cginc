@@ -7,6 +7,7 @@ sampler2D _StrandTex;
 uniform float _StrandColorStrength;
 
 half _AO;
+half _Metallic;
 
 uniform float _FurLength;
 uniform float _FurLengthMin;

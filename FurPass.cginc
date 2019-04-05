@@ -20,4 +20,5 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 	o.Normal = lerp(o.Normal, UnpackNormal(tex2D(_Normals, IN.uv_MainTex)), _NormalStr);
 
 	o.Occlusion = lerp(1, FUR_MULTIPLIER, _AO);
+    o.Metallic = _Metallic;
 }

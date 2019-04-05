@@ -12,6 +12,7 @@ namespace UnityEditor
 			public static GUIContent norm = new GUIContent("Normals");
 			public static GUIContent noise = new GUIContent("Noise");
 			public static GUIContent gradient = new GUIContent("Strand Gradient");
+            public static GUIContent metallic = new GUIContent("Metallic");
 
             public static GUIContent length = new GUIContent("Length");
             public static GUIContent lengthMin = new GUIContent("Length Min");
@@ -37,7 +38,8 @@ namespace UnityEditor
 		MaterialProperty noiseTex = null;
 		MaterialProperty strand = null;
 		MaterialProperty strandStr = null;
-		MaterialProperty ao = null;
+        MaterialProperty ao = null;
+        MaterialProperty metal = null;
 
         MaterialProperty length = null;
         MaterialProperty lengthMin = null;
@@ -69,7 +71,8 @@ namespace UnityEditor
 			noiseTex = FindProperty("_NoiseTex", props);
 			strand = FindProperty("_StrandTex", props);
 			strandStr = FindProperty("_StrandColorStrength", props);
-			ao = FindProperty("_AO", props);
+            ao = FindProperty("_AO", props);
+            metal = FindProperty("_Metallic", props);
 
             length = FindProperty("_FurLength", props);
             lengthMin = FindProperty("_FurLengthMin", props);
@@ -106,6 +109,7 @@ namespace UnityEditor
 			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
             m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noiseTex);
             m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+            m_MaterialEditor.ShaderProperty(metal, Styles.metallic);
 
             GUILayout.Label("Fur Length", EditorStyles.boldLabel);
             m_MaterialEditor.ShaderProperty(fade, "Fade Rendering");

@@ -10,7 +10,8 @@ Shader "Fur/Fur (01 Shells)" {
 		_NoiseTex ("Noise", 2D) = "white" {}
 		_StrandTex ("Strand Gradient", 2D) = "white" {}
 		_StrandColorStrength("Strand Color Multiply Strength", Range(0,1)) = 0.5
-		_AO("Ambient Occlusion Strength", Range(0,1)) = 0.5
+        _AO("Ambient Occlusion Strength", Range(0,1)) = 0.5
+        _Metallic("Metallic", Range(0,1)) = 0
 
 		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
         _FurLengthMin ("Fur Length Minimum", Range (.0002, 0.25)) = 0.0

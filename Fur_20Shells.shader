@@ -23,6 +23,10 @@
         
 		_Gravity ("Gravity direction", Vector) = (0,-1,0,0.3)
         
+        [Toggle] _NormXFlip ("Flip Normal X", Float) = 0.0
+        [Toggle] _NormYFlip ("Flip Normal Y", Float) = 0.0
+        [Toggle] _NormZFlip ("Flip Normal Z", Float) = 0.0
+        
 		_NormInf ("Normal Influence", Range(0,1)) = 0
 		_NormInfTip ("Normal Influence On Tip", Range(0,1)) = 0
         

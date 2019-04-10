@@ -18,6 +18,10 @@ uniform float _CutoffEnd;
 uniform float _EdgeFade;
 
 uniform fixed4 _Gravity;
+        
+uniform float _NormXFlip;
+uniform float _NormYFlip;
+uniform float _NormZFlip;
 
 uniform half _NormInf;
 uniform half _NormInfTip;

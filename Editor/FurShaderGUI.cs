@@ -23,7 +23,11 @@ namespace UnityEditor
 			public static GUIContent edgeFade = new GUIContent("Edge Fade");
 			public static GUIContent gravDir = new GUIContent("Gravity Direction (XYZ), Strength (W)");
 
-			public static GUIContent normInf = new GUIContent("Normal Map Base Influence");
+            public static GUIContent normXFlip = new GUIContent("Flip Normal X");
+            public static GUIContent normYFlip = new GUIContent("Flip Normal Y");
+            public static GUIContent normZFlip = new GUIContent("Flip Normal Z");
+
+            public static GUIContent normInf = new GUIContent("Normal Map Base Influence");
 			public static GUIContent normInfTip = new GUIContent("Normal Map Tip Influence");
 
 			public static GUIContent wind = new GUIContent("Wind Cloud, Dir(XYZ), Speed(W)");
@@ -51,8 +55,11 @@ namespace UnityEditor
 
 		MaterialProperty gravity  = null;
 
-		MaterialProperty normInf = null;
-		MaterialProperty normInfTip = null;
+        MaterialProperty normXFlip = null;
+        MaterialProperty normYFlip = null;
+        MaterialProperty normZFlip = null;
+        MaterialProperty normInf = null;
+        MaterialProperty normInfTip = null;
 
 		MaterialProperty windCloud = null;
 		MaterialProperty windDir = null;
@@ -84,7 +91,11 @@ namespace UnityEditor
 
 			gravity  = FindProperty("_Gravity", props);
 
-			normInf = FindProperty("_NormInf", props);
+            normXFlip = FindProperty("_NormXFlip", props);
+            normYFlip = FindProperty("_NormYFlip", props);
+            normZFlip = FindProperty("_NormZFlip", props);
+
+            normInf = FindProperty("_NormInf", props);
 			normInfTip = FindProperty("_NormInfTip", props);
 
 			windCloud = FindProperty("_WindCloud", props);
@@ -124,8 +135,14 @@ namespace UnityEditor
 
             GUILayout.Label("Fur Shape", EditorStyles.boldLabel);
             m_MaterialEditor.ShaderProperty(gravity, Styles.gravDir);
-			m_MaterialEditor.ShaderProperty(normInf, Styles.normInf);
-			m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTip);
+
+            m_MaterialEditor.ShaderProperty(normXFlip, Styles.normXFlip);
+            m_MaterialEditor.ShaderProperty(normYFlip, Styles.normYFlip);
+            m_MaterialEditor.ShaderProperty(normZFlip, Styles.normZFlip);
+
+            m_MaterialEditor.ShaderProperty(normInf, Styles.normInf);
+            m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTip);
+
             m_MaterialEditor.TexturePropertySingleLine(Styles.wind, windCloud, windDir);
 
 			SetupMaterialWithBlendMode(material, material.GetFloat("_Fade"));	

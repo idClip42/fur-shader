@@ -62,6 +62,7 @@
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.20
+        #define SURF_OUTPUT SurfaceOutputStandard
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc"
         #include "FurPass.cginc"
@@ -70,6 +71,7 @@
 		#pragma surface surf Standard  keepalpha vertex:vert
         #pragma shader_feature_local _FADE_ON
         #define FUR_MULTIPLIER 0.40
+        #define SURF_OUTPUT SurfaceOutputStandard
         #include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
         #include "FurPass.cginc"
@@ -78,6 +80,7 @@
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.60
+        #define SURF_OUTPUT SurfaceOutputStandard
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
         #include "FurPass.cginc"
@@ -86,6 +89,7 @@
 		#pragma surface surf Standard keepalpha  vertex:vert
 		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.80
+        #define SURF_OUTPUT SurfaceOutputStandard
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
         #include "FurPass.cginc"
@@ -94,6 +98,7 @@
 		#pragma surface surf Standard  keepalpha vertex:vert
 		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 1.00
+        #define SURF_OUTPUT SurfaceOutputStandard
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
         #include "FurPass.cginc"

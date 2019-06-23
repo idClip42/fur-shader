@@ -1,4 +1,4 @@
-void surf (Input IN, inout SurfaceOutputStandard o)
+void surf (Input IN, inout SURF_OUTPUT o)
 {
 	half perc = GetPercentage();
 
@@ -21,4 +21,8 @@ void surf (Input IN, inout SurfaceOutputStandard o)
 
 	o.Occlusion = lerp(1, FUR_MULTIPLIER, _AO);
     o.Metallic = _Metallic;
+    
+    #ifdef _ONE_SHELL
+        o.Albedo = fixed3(1,0,0);
+    #endif
 }

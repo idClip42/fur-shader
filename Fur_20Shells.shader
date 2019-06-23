@@ -60,7 +60,7 @@
         
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.05
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -68,7 +68,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.10
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -76,7 +76,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.15
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -84,7 +84,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.20
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -92,7 +92,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.25
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -100,7 +100,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.30
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -108,7 +108,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.35
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -116,7 +116,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.40
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -124,7 +124,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.45
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -132,7 +132,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.50
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -140,7 +140,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.55
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -148,7 +148,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.60
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -156,7 +156,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.65
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -164,7 +164,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.70
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -172,7 +172,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.75
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -180,7 +180,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.80
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -188,7 +188,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.85
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -196,7 +196,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.90
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -204,7 +204,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard keepalpha  vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 0.95
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 
@@ -212,7 +212,7 @@
 		ENDCG
 		CGPROGRAM
 		#pragma surface surf Standard  keepalpha vertex:vert
-		#pragma shader_feature _FADE_ON
+		#pragma shader_feature_local _FADE_ON
 		#define FUR_MULTIPLIER 1.00
 		#include "FurPassProps.cginc" 
         #include "FurPassVert.cginc" 

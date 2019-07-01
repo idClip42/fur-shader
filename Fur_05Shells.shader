@@ -1,13 +1,14 @@
 ﻿Shader "Fur/Fur (05 Shells)" {
 	Properties {
 
-		[Toggle] _Fade ("Fade Render", Float) = 0.0
+		//[Toggle] _Fade ("Fade Render", Float) = 0.0
         
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo", 2D) = "white" {}
 		_Normals ("Normal Map", 2D) = "bump" {}
 		_NormalStr ("Normal Strength", Range(0,1)) = 1
 		_NoiseTex ("Noise", 2D) = "white" {}
+        _NoiseScale ("NoiseScale", Range(0.1, 30)) = 1
 		_StrandTex ("Strand Gradient", 2D) = "white" {}
 		_StrandColorStrength("Strand Color Multiply Strength", Range(0,1)) = 0.5
 		_AO("Ambient Occlusion Strength", Range(0,1)) = 0.5

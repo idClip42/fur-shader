@@ -10,8 +10,9 @@ namespace UnityEditor
 		{
 			public static GUIContent tex = new GUIContent("Albedo (RGB), Length(A), AO");
 			public static GUIContent norm = new GUIContent("Normals");
-			public static GUIContent noise = new GUIContent("Noise");
-			public static GUIContent gradient = new GUIContent("Strand Gradient");
+            public static GUIContent noise = new GUIContent("Noise");
+            public static GUIContent noiseScale = new GUIContent("NoiseScale");
+            public static GUIContent gradient = new GUIContent("Strand Gradient");
             public static GUIContent metallic = new GUIContent("Metallic");
 
             public static GUIContent length = new GUIContent("Length");
@@ -33,14 +34,15 @@ namespace UnityEditor
 			public static GUIContent wind = new GUIContent("Wind Cloud, Dir(XYZ), Speed(W)");
 		}
 
-		MaterialProperty fade = null;
+		//MaterialProperty fade = null;
 
 		MaterialProperty color = null;
 		MaterialProperty mainTex = null;
 		MaterialProperty normal = null;
 		MaterialProperty normalStr = null;
-		MaterialProperty noiseTex = null;
-		MaterialProperty strand = null;
+        MaterialProperty noiseTex = null;
+        MaterialProperty noiseScale = null;
+        MaterialProperty strand = null;
 		MaterialProperty strandStr = null;
         MaterialProperty ao = null;
         MaterialProperty metal = null;
@@ -69,14 +71,15 @@ namespace UnityEditor
 
 		public void FindProperties(MaterialProperty[] props)
 		{
-			fade = FindProperty("_Fade", props);
+			//fade = FindProperty("_Fade", props);
 
 			color = FindProperty("_Color", props);
 			mainTex = FindProperty("_MainTex", props);
 			normal = FindProperty("_Normals", props);
 			normalStr = FindProperty("_NormalStr", props);
-			noiseTex = FindProperty("_NoiseTex", props);
-			strand = FindProperty("_StrandTex", props);
+            noiseTex = FindProperty("_NoiseTex", props);
+            noiseScale = FindProperty("_NoiseScale", props);
+            strand = FindProperty("_StrandTex", props);
 			strandStr = FindProperty("_StrandColorStrength", props);
             ao = FindProperty("_AO", props);
             metal = FindProperty("_Metallic", props);
@@ -118,20 +121,31 @@ namespace UnityEditor
             m_MaterialEditor.TexturePropertySingleLine(Styles.tex, mainTex, color, ao);
             m_MaterialEditor.TexturePropertySingleLine(Styles.norm, normal, normalStr);
 			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
-            m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noiseTex);
-            m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noiseTex, noiseScale);
+
+            //m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
+
             m_MaterialEditor.ShaderProperty(metal, Styles.metallic);
 
             GUILayout.Label("Fur Length", EditorStyles.boldLabel);
-            m_MaterialEditor.ShaderProperty(fade, "Fade Rendering");
+            //m_MaterialEditor.ShaderProperty(fade, "Fade Rendering");
+
+            //float minValue = material.GetFloat("_FurLengthMin");
+            //float maxValue = material.GetFloat("_FurLength");
+            //EditorGUI.MinMaxSlider(MaterialEditor.GetLeftAlignedFieldRect(new Rect(0, 0, 100, 100)), Styles.length, ref minValue, ref maxValue, 0.0002f, 0.25f);
+            //material.SetFloat("_FurLengthMin", minValue);
+            //material.SetFloat("_FurLength", maxValue);
+
             m_MaterialEditor.ShaderProperty(length, Styles.length);
             m_MaterialEditor.ShaderProperty(lengthMin, Styles.lengthMin);
             m_MaterialEditor.ShaderProperty(thickCurve, Styles.curve);
 			m_MaterialEditor.ShaderProperty(offset, Styles.offset);
 			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffBase);
 			m_MaterialEditor.ShaderProperty(cutoffEnd, Styles.cutoffTip);
-			if(material.GetFloat("_Fade") == 1.0f)
-				m_MaterialEditor.ShaderProperty(edgeFade, Styles.edgeFade);
+
+			//if(material.GetFloat("_Fade") == 1.0f)
+            m_MaterialEditor.ShaderProperty(edgeFade, Styles.edgeFade);
+            //material.SetFloat("_Fade", (material.GetFloat("_EdgeFade") > 0.01f) ? 1 : 0);
 
             GUILayout.Label("Fur Shape", EditorStyles.boldLabel);
             m_MaterialEditor.ShaderProperty(gravity, Styles.gravDir);
@@ -145,8 +159,9 @@ namespace UnityEditor
 
             m_MaterialEditor.TexturePropertySingleLine(Styles.wind, windCloud, windDir);
 
-			SetupMaterialWithBlendMode(material, material.GetFloat("_Fade"));	
-		}
+            //SetupMaterialWithBlendMode(material, material.GetFloat("_Fade"));
+            SetupMaterialWithBlendMode(material, (material.GetFloat("_EdgeFade") > 0.01f) ? 1 : 0);
+        }
 
 
 
@@ -165,6 +180,7 @@ namespace UnityEditor
 				// material.DisableKeyword("_ALPHABLEND_ON");
 				// material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 				material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
+                material.DisableKeyword("_FADE_ON");
 				break;
 			case 1:
 				material.SetOverrideTag("RenderType", "Transparent");
@@ -175,7 +191,8 @@ namespace UnityEditor
 				// material.EnableKeyword("_ALPHABLEND_ON");
 				// material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
 				material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-				break;
+                material.EnableKeyword("_FADE_ON");
+                break;
 			}
 		}
 

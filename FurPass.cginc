@@ -7,7 +7,11 @@ void surf (Input IN, inout SURF_OUTPUT o)
         tex2D (_StrandTex, fixed2(perc, 0.5f)),
         _StrandColorStrength);
     
+    IN.uv_NoiseTex.x *= _NoiseScale;
+    IN.uv_NoiseTex.y *= _NoiseScale;
     o.Alpha = tex2D (_NoiseTex, IN.uv_NoiseTex).r;
+    //o.Alpha = tex2D (_NoiseTex, half4(_NoiseScale, _NoiseScale, 0, 0)).r;
+    
 	#ifdef _FADE_ON
 		o.Alpha = step(lerp(_Cutoff, _CutoffEnd, perc), o.Alpha);
         o.Alpha *= 1 - 2 * _EdgeFade * (1 - (dot(IN.viewDir, o.Normal) * (1 - (perc * perc))));

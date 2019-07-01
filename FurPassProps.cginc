@@ -3,6 +3,7 @@ sampler2D _MainTex;
 sampler2D _Normals;
 half _NormalStr;
 sampler2D _NoiseTex;
+half _NoiseScale;
 sampler2D _StrandTex;
 uniform float _StrandColorStrength;
 

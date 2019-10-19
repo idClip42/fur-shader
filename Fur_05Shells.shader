@@ -13,11 +13,14 @@
 		_StrandColorStrength("Strand Color Multiply Strength", Range(0,1)) = 0.5
 		_AO("Ambient Occlusion Strength", Range(0,1)) = 0.5
         _Metallic("Metallic", Range(0,1)) = 0
+        
+        _HeightMap ("Height Map", 2D) = "black" {}
 
 		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
         _FurLengthMin ("Fur Length Minimum", Range (.0002, 0.25)) = 0.0
 		_ThicknessCurve ("Thickness Curve", Range(0,1)) = 0.75
-		_Offset ("Fur Offset", Range(-0.25, 0.25)) = 0
+        _Offset ("Fur Base Offset", Range(-0.25, 0.25)) = 0
+        _TipOffset ("Fur Tip Offset", Range(0, 0.25)) = 0
 		_Cutoff ("Alpha cutoff base", Range(0,1)) = 0
 		_CutoffEnd ("Alpha cutoff tip", Range(0,1)) = 0.5
 		_EdgeFade ("Edge fade", Range(0,0.5)) = 0.5

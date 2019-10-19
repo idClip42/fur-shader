@@ -14,12 +14,14 @@ namespace UnityEditor
             public static GUIContent noiseScale = new GUIContent("NoiseScale");
             public static GUIContent gradient = new GUIContent("Strand Gradient");
             public static GUIContent metallic = new GUIContent("Metallic");
+            public static GUIContent heightMap = new GUIContent("Height Map");
 
             public static GUIContent length = new GUIContent("Length");
             public static GUIContent lengthMin = new GUIContent("Length Min");
             public static GUIContent curve = new GUIContent("Thickness Curve");
-			public static GUIContent offset = new GUIContent("Offset");
-			public static GUIContent cutoffBase = new GUIContent("Base Cutoff");
+            public static GUIContent offset = new GUIContent("Min Offset");
+            public static GUIContent tipOffset = new GUIContent("Max Offset");
+            public static GUIContent cutoffBase = new GUIContent("Base Cutoff");
 			public static GUIContent cutoffTip = new GUIContent("Tip Cutoff");
 			public static GUIContent edgeFade = new GUIContent("Edge Fade");
 			public static GUIContent gravDir = new GUIContent("Gravity Direction (XYZ), Strength (W)");
@@ -46,12 +48,14 @@ namespace UnityEditor
 		MaterialProperty strandStr = null;
         MaterialProperty ao = null;
         MaterialProperty metal = null;
+        MaterialProperty heightMap = null;
 
         MaterialProperty length = null;
         MaterialProperty lengthMin = null;
         MaterialProperty thickCurve = null;
-		MaterialProperty offset = null;
-		MaterialProperty cutoff = null;
+        MaterialProperty offset = null;
+        MaterialProperty tipOffset = null;
+        MaterialProperty cutoff = null;
 		MaterialProperty cutoffEnd = null;
 		MaterialProperty edgeFade = null;
 
@@ -83,12 +87,14 @@ namespace UnityEditor
 			strandStr = FindProperty("_StrandColorStrength", props);
             ao = FindProperty("_AO", props);
             metal = FindProperty("_Metallic", props);
+            heightMap = FindProperty("_HeightMap", props);
 
             length = FindProperty("_FurLength", props);
             lengthMin = FindProperty("_FurLengthMin", props);
             thickCurve = FindProperty("_ThicknessCurve", props);
-			offset = FindProperty("_Offset", props);
-			cutoff = FindProperty("_Cutoff", props);
+            offset = FindProperty("_Offset", props);
+            tipOffset = FindProperty("_TipOffset", props);
+            cutoff = FindProperty("_Cutoff", props);
 			cutoffEnd = FindProperty("_CutoffEnd", props);
 			edgeFade = FindProperty("_EdgeFade", props);
 
@@ -120,7 +126,8 @@ namespace UnityEditor
 			GUILayout.Label("Primary Textures", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.tex, mainTex, color, ao);
             m_MaterialEditor.TexturePropertySingleLine(Styles.norm, normal, normalStr);
-			m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.heightMap, heightMap, tipOffset);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
             m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noiseTex, noiseScale);
 
             //m_MaterialEditor.TextureScaleOffsetProperty(noiseTex);
@@ -139,8 +146,9 @@ namespace UnityEditor
             m_MaterialEditor.ShaderProperty(length, Styles.length);
             m_MaterialEditor.ShaderProperty(lengthMin, Styles.lengthMin);
             m_MaterialEditor.ShaderProperty(thickCurve, Styles.curve);
-			m_MaterialEditor.ShaderProperty(offset, Styles.offset);
-			m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffBase);
+            m_MaterialEditor.ShaderProperty(offset, Styles.offset);
+            //m_MaterialEditor.ShaderProperty(tipOffset, Styles.tipOffset);
+            m_MaterialEditor.ShaderProperty(cutoff, Styles.cutoffBase);
 			m_MaterialEditor.ShaderProperty(cutoffEnd, Styles.cutoffTip);
 
 			//if(material.GetFloat("_Fade") == 1.0f)

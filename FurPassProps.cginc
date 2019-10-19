@@ -7,6 +7,10 @@ half _NoiseScale;
 sampler2D _StrandTex;
 uniform float _StrandColorStrength;
 
+sampler2D _HeightMap;
+uniform float _TipOffset;
+
+
 half _AO;
 half _Metallic;
 

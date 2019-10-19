@@ -38,7 +38,8 @@ void vert (inout appdata_full v)
 	half perc = GetPercentage();
 
 	v.vertex.xyz += 
-        v.normal * _Offset + 
+        v.normal * 
+        lerp(_Offset, _TipOffset, tex2Dlod(_HeightMap, v.texcoord).r) + 
         lerp(
             vNormal, 
             (forceDir) + vNormal * (1-_Gravity.w), 

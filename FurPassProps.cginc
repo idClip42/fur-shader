@@ -17,7 +17,7 @@ half _Metallic;
 
 uniform float _FurLength;
 uniform float _FurLengthMin;
-uniform float _ThicknessCurve;
+//uniform float _ThicknessCurve;
 uniform float _Offset;
 uniform float _Cutoff;
 uniform float _CutoffEnd;
@@ -25,12 +25,12 @@ uniform float _EdgeFade;
 
 uniform fixed4 _Gravity;
         
-uniform float _NormXFlip;
-uniform float _NormYFlip;
-uniform float _NormZFlip;
+//uniform float _NormXFlip;
+//uniform float _NormYFlip;
+//uniform float _NormZFlip;
 
 uniform half _NormInf;
-uniform half _NormInfTip;
+//uniform half _NormInfTip;
 
 sampler2D _WindCloud;
 fixed4 _WindDir;

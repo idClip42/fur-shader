@@ -19,7 +19,7 @@
 
 		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
         _FurLengthMin ("Fur Length Minimum", Range (.0002, 0.25)) = 0.0
-		_ThicknessCurve ("Thickness Curve", Range(0,1)) = 0.75
+		//_ThicknessCurve ("Thickness Curve", Range(0,1)) = 0.75
         _Offset ("Fur Base Offset", Range(-0.25, 0.25)) = 0
         _TipOffset ("Fur Tip Offset", Range(0, 0.25)) = 0
 		_Cutoff ("Alpha cutoff base", Range(0,1)) = 0
@@ -28,12 +28,12 @@
         
 		_Gravity ("Gravity direction", Vector) = (0,-1,0,0.3)
         
-        [Toggle] _NormXFlip ("Flip Normal X", Float) = 0.0
-        [Toggle] _NormYFlip ("Flip Normal Y", Float) = 0.0
-        [Toggle] _NormZFlip ("Flip Normal Z", Float) = 0.0
+        //[Toggle] _NormXFlip ("Flip Normal X", Float) = 0.0
+        //[Toggle] _NormYFlip ("Flip Normal Y", Float) = 0.0
+        //[Toggle] _NormZFlip ("Flip Normal Z", Float) = 0.0
         
 		_NormInf ("Normal Influence", Range(0,1)) = 0
-		_NormInfTip ("Normal Influence On Tip", Range(0,1)) = 0
+		//_NormInfTip ("Normal Influence On Tip", Range(0,1)) = 0
         
 		_WindCloud ("Wind Cloud", 2D) = "black" {}
 		_WindDir ("Wind Direction and Speed", Vector) = (0,0,0,0)

@@ -19,7 +19,7 @@ namespace UnityEditor
 
             public static GUIContent length = new GUIContent("Length");
             public static GUIContent lengthMin = new GUIContent("Length Min");
-            public static GUIContent curve = new GUIContent("Thickness Curve");
+            //public static GUIContent curve = new GUIContent("Thickness Curve");
             public static GUIContent offset = new GUIContent("Min Offset");
             public static GUIContent tipOffset = new GUIContent("Max Offset");
             public static GUIContent cutoffBase = new GUIContent("Base Thin");
@@ -27,12 +27,12 @@ namespace UnityEditor
 			public static GUIContent edgeFade = new GUIContent("Edge Fade");
 			public static GUIContent gravDir = new GUIContent("Gravity Direction (XYZ), Strength (W)");
 
-            public static GUIContent normXFlip = new GUIContent("Flip Normal X");
-            public static GUIContent normYFlip = new GUIContent("Flip Normal Y");
-            public static GUIContent normZFlip = new GUIContent("Flip Normal Z");
+            //public static GUIContent normXFlip = new GUIContent("Flip Normal X");
+            //public static GUIContent normYFlip = new GUIContent("Flip Normal Y");
+            //public static GUIContent normZFlip = new GUIContent("Flip Normal Z");
 
-            public static GUIContent normInf = new GUIContent("Tangent Map Base Influence");
-			public static GUIContent normInfTip = new GUIContent("Tangent Map Tip Influence");
+            public static GUIContent normInf = new GUIContent("Tangent Map Influence");
+			//public static GUIContent normInfTip = new GUIContent("Tangent Map Tip Influence");
 
 			public static GUIContent wind = new GUIContent("Wind Cloud, Dir(XYZ), Speed(W)");
 		}
@@ -54,7 +54,7 @@ namespace UnityEditor
 
         MaterialProperty length = null;
         MaterialProperty lengthMin = null;
-        MaterialProperty thickCurve = null;
+        //MaterialProperty thickCurve = null;
         MaterialProperty offset = null;
         MaterialProperty tipOffset = null;
         MaterialProperty cutoff = null;
@@ -63,11 +63,11 @@ namespace UnityEditor
 
 		MaterialProperty gravity  = null;
 
-        MaterialProperty normXFlip = null;
-        MaterialProperty normYFlip = null;
-        MaterialProperty normZFlip = null;
+        //MaterialProperty normXFlip = null;
+        //MaterialProperty normYFlip = null;
+        //MaterialProperty normZFlip = null;
         MaterialProperty normInf = null;
-        MaterialProperty normInfTip = null;
+        //MaterialProperty normInfTip = null;
 
 		MaterialProperty windCloud = null;
 		MaterialProperty windDir = null;
@@ -94,7 +94,7 @@ namespace UnityEditor
 
             length = FindProperty("_FurLength", props);
             lengthMin = FindProperty("_FurLengthMin", props);
-            thickCurve = FindProperty("_ThicknessCurve", props);
+            //thickCurve = FindProperty("_ThicknessCurve", props);
             offset = FindProperty("_Offset", props);
             tipOffset = FindProperty("_TipOffset", props);
             cutoff = FindProperty("_Cutoff", props);
@@ -103,12 +103,12 @@ namespace UnityEditor
 
 			gravity  = FindProperty("_Gravity", props);
 
-            normXFlip = FindProperty("_NormXFlip", props);
-            normYFlip = FindProperty("_NormYFlip", props);
-            normZFlip = FindProperty("_NormZFlip", props);
+            //normXFlip = FindProperty("_NormXFlip", props);
+            //normYFlip = FindProperty("_NormYFlip", props);
+            //normZFlip = FindProperty("_NormZFlip", props);
 
             normInf = FindProperty("_NormInf", props);
-			normInfTip = FindProperty("_NormInfTip", props);
+			//normInfTip = FindProperty("_NormInfTip", props);
 
 			windCloud = FindProperty("_WindCloud", props);
 			windDir = FindProperty("_WindDir", props);
@@ -149,9 +149,9 @@ namespace UnityEditor
 
             GUILayout.Label("Flow", EditorStyles.boldLabel);
             m_MaterialEditor.ShaderProperty(gravity, Styles.gravDir);
-            m_MaterialEditor.TexturePropertySingleLine(Styles.tang, tang);
-            m_MaterialEditor.ShaderProperty(normInf, Styles.normInf);
-            m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTip);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.tang, tang, normInf);
+            //m_MaterialEditor.ShaderProperty(normInf, Styles.normInf);
+            //m_MaterialEditor.ShaderProperty(normInfTip, Styles.normInfTip);
             m_MaterialEditor.TexturePropertySingleLine(Styles.wind, windCloud, windDir);
 
             SetupMaterialWithBlendMode(material, (material.GetFloat("_EdgeFade") > 0.01f) ? 1 : 0);

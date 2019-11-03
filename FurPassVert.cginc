@@ -12,7 +12,8 @@
 
 half GetPercentage()
 {
-    return lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), _ThicknessCurve);
+    //return lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), _ThicknessCurve);
+    return lerp(FUR_MULTIPLIER, 1 - pow(1-FUR_MULTIPLIER,2), 0.75f);
 }
 
 void vert (inout appdata_full v)
@@ -20,16 +21,17 @@ void vert (inout appdata_full v)
     half3 mapNormal = GetMapNormal(v);
     
     // There must be a slightly cleaner way to do this math.
-    mapNormal.x = lerp(mapNormal.x, -mapNormal.x, _NormXFlip);
-    mapNormal.y = lerp(mapNormal.y, -mapNormal.y, _NormYFlip);
-    mapNormal.z = lerp(mapNormal.z, -mapNormal.z, _NormZFlip);
+    //mapNormal.x = lerp(mapNormal.x, -mapNormal.x, _NormXFlip);
+    //mapNormal.y = lerp(mapNormal.y, -mapNormal.y, _NormYFlip);
+    //mapNormal.z = lerp(mapNormal.z, -mapNormal.z, _NormZFlip);
     
     
 	fixed3 vNormal = lerp(v.normal, mapNormal, _NormInf);
     
     half timeVal = fmod(_Time.y * _WindDir.w, 1);
 	fixed3 forceDir = lerp(
-        lerp(_Gravity.xyz, mapNormal, _NormInfTip) * _Gravity.w, 
+        //lerp(_Gravity.xyz, mapNormal, _NormInfTip) * _Gravity.w, 
+        _Gravity.xyz * _Gravity.w, 
         _WindDir.xyz, 
         tex2Dlod(
             _WindCloud, 

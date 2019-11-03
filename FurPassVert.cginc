@@ -3,7 +3,7 @@
 	half3 wNormal = v.normal;
     half3 wTangent = v.tangent.xyz;
     half3 wBitangent = cross(wNormal, wTangent) * v.tangent.w;
-    half3 tnormal = (tex2Dlod(_Normals, v.texcoord) - 0.5f) * 2;
+    half3 tnormal = (tex2Dlod(_TangentMap, v.texcoord) - 0.5f) * 2;
     return half3(
         dot(half3(wTangent.x, wBitangent.x, wNormal.x), tnormal),
         dot(half3(wTangent.y, wBitangent.y, wNormal.y), tnormal),

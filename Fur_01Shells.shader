@@ -7,6 +7,7 @@ Shader "Fur/Fur (01 Shells)" {
 		_MainTex ("Albedo", 2D) = "white" {}
 		_Normals ("Normal Map", 2D) = "bump" {}
 		_NormalStr ("Normal Strength", Range(0,1)) = 1
+        _TangentMap ("Tangent Map", 2D) = "bump" {}
 		_NoiseTex ("Noise", 2D) = "white" {}
         _NoiseScale ("NoiseScale", Range(0.1, 30)) = 1
 		_StrandTex ("Strand Gradient", 2D) = "white" {}

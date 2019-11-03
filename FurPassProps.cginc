@@ -1,6 +1,7 @@
 ﻿fixed4 _Color;
 sampler2D _MainTex;
 sampler2D _Normals;
+sampler2D _TangentMap;
 half _NormalStr;
 sampler2D _NoiseTex;
 half _NoiseScale;

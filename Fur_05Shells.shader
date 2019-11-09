@@ -1,48 +1,40 @@
 ﻿Shader "Fur/Fur (05 Shells)" {
-	Properties {
 
-		//[Toggle] _Fade ("Fade Render", Float) = 0.0
+    Properties {
+        _Color          ("", Color)                 = (1, 1, 1, 1)
+        _MainTex        ("", 2D)                    = "white" {}
+        _AO             ("", Range (0,1))           = 0.5
         
-		_Color ("Color", Color) = (1,1,1,1)
-		_MainTex ("Albedo", 2D) = "white" {}
-		_Normals ("Normal Map", 2D) = "bump" {}
-		_NormalStr ("Normal Strength", Range(0,1)) = 1
-        _TangentMap ("Tangent Map", 2D) = "bump" {}
-		_NoiseTex ("Noise", 2D) = "white" {}
-        _NoiseScale ("NoiseScale", Range(0.1, 30)) = 1
-		_StrandTex ("Strand Gradient", 2D) = "white" {}
-		_StrandColorStrength("Strand Color Multiply Strength", Range(0,1)) = 0.5
-		_AO("Ambient Occlusion Strength", Range(0,1)) = 0.5
-        _Metallic("Metallic", Range(0,1)) = 0
+        _Normals        ("", 2D)                    = "bump" {}
+        _NormalStr      ("", Range (0,1))           = 1
         
-        _HeightMap ("Height Map", 2D) = "black" {}
+        _StrandTex      ("", 2D)                    = "white" {}
+        _StrandTexStr   ("", Range (0,1))           = 0.5
+        
+        _NoiseTex       ("", 2D)                    = "white" {}
+        _NoiseScale     ("", Range (0.1, 30))       = 10
+        _EdgeFade       ("", Range (0,0.5))         = 0.5
+        
+        _FurLength      ("", Range (.0002, 0.25))   = 0.1
+        _FurLengthMin   ("", Range (.0002, 0.25))   = 0.0
+        
+        _HeightMap      ("", 2D)                    = "black" {}
+        _Offset         ("", Range (-0.25, 0.25))   = 0
+        _TipOffset      ("", Range (0, 0.25))       = 0
+        
+        _Gravity        ("", Vector)                = (0, -1, 0, 0.3)
+        _TangentMap     ("", 2D)                    = "bump" {}
+        _NormInf        ("", Range (0,1))           = 0
+        
+        _WindCloud      ("", 2D)                    = "black" {}
+        _WindDir        ("", Vector)                = (0, 0, 0, 0)
 
-		_FurLength ("Fur Length", Range (.0002, 0.25)) = 0.1
-        _FurLengthMin ("Fur Length Minimum", Range (.0002, 0.25)) = 0.0
-		//_ThicknessCurve ("Thickness Curve", Range(0,1)) = 0.75
-        _Offset ("Fur Base Offset", Range(-0.25, 0.25)) = 0
-        _TipOffset ("Fur Tip Offset", Range(0, 0.25)) = 0
-		_Cutoff ("Alpha cutoff base", Range(0,1)) = 0
-		_CutoffEnd ("Alpha cutoff tip", Range(0,1)) = 0.5
-		_EdgeFade ("Edge fade", Range(0,0.5)) = 0.5
-        
-		_Gravity ("Gravity direction", Vector) = (0,-1,0,0.3)
-        
-        //[Toggle] _NormXFlip ("Flip Normal X", Float) = 0.0
-        //[Toggle] _NormYFlip ("Flip Normal Y", Float) = 0.0
-        //[Toggle] _NormZFlip ("Flip Normal Z", Float) = 0.0
-        
-		_NormInf ("Normal Influence", Range(0,1)) = 0
-		//_NormInfTip ("Normal Influence On Tip", Range(0,1)) = 0
-        
-		_WindCloud ("Wind Cloud", 2D) = "black" {}
-		_WindDir ("Wind Direction and Speed", Vector) = (0,0,0,0)
-
-        [HideInInspector] _SrcBlend ("__src", Float) = 1.0
-        [HideInInspector] _DstBlend ("__dst", Float) = 0.0
-        [HideInInspector] _ZWrite ("__zw", Float) = 1.0
-	}
-	SubShader {
+        [HideInInspector] _SrcBlend ("", Float)     = 1.0
+        [HideInInspector] _DstBlend ("", Float)     = 0.0
+        [HideInInspector] _ZWrite   ("", Float)     = 1.0
+    }
+    
+    SubShader {
 		Tags { "Queue"="AlphaTest" "RenderType"="TransparentCutout" }
 		LOD 200
 

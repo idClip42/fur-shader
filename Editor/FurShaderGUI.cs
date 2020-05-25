@@ -7,10 +7,10 @@ namespace UnityEditor
 	{
 
 		private static class Styles
-		{
-			public static GUIContent tex = new GUIContent("Color (RGB), Length(A), AO");
+        {
+            public static GUIContent tex = new GUIContent("Color (RGB), Length(A), AO");
             public static GUIContent norm = new GUIContent("Normals");
-            public static GUIContent gradient = new GUIContent("Strand Gradient");
+            public static GUIContent gradient = new GUIContent("Strand Gradient (& Base Color)");
 
             public static GUIContent noise = new GUIContent("Noise");
             public static GUIContent edgeFade = new GUIContent("Edge Fade");
@@ -27,8 +27,9 @@ namespace UnityEditor
 			public static GUIContent wind = new GUIContent("Cloud Tex, Dir(XYZ), Speed(W)");
 		}
 
-		MaterialProperty color;
-		MaterialProperty mainTex;
+        MaterialProperty color;
+        MaterialProperty baseLayerColor;
+        MaterialProperty mainTex;
         MaterialProperty ao;
 
         MaterialProperty normal;
@@ -59,9 +60,10 @@ namespace UnityEditor
 
 
 		public void FindProperties(MaterialProperty[] props)
-		{
-			color       = FindProperty("_Color", props);
-			mainTex     = FindProperty("_MainTex", props);
+        {
+            color       = FindProperty("_Color", props);
+            baseLayerColor = FindProperty("_BaseLayerColor", props);
+            mainTex     = FindProperty("_MainTex", props);
             ao          = FindProperty("_AO", props);
 
             normal      = FindProperty("_Normals", props);
@@ -102,7 +104,7 @@ namespace UnityEditor
             GUILayout.Label("Base", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.tex, mainTex, color, ao);
             m_MaterialEditor.TexturePropertySingleLine(Styles.norm, normal, normalStr);
-            m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr);
+            m_MaterialEditor.TexturePropertySingleLine(Styles.gradient, strand, strandStr, baseLayerColor);
 
             GUILayout.Label("Thickness", EditorStyles.boldLabel);
             m_MaterialEditor.TexturePropertySingleLine(Styles.noise, noiseTex, noiseScale);

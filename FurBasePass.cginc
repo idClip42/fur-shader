@@ -2,6 +2,7 @@
 
 sampler2D _MainTex;
 sampler2D _Normals;
+fixed3 _BaseLayerColor;
 
 struct Input {
 	float2 uv_MainTex;
@@ -29,6 +30,7 @@ void vert (inout appdata_full v)
 void surf (Input IN, inout SurfaceOutputStandard o) {
 	o.Albedo = (tex2D (_MainTex, IN.uv_MainTex) * _Color).rgb;
 	o.Albedo *= lerp(1, tex2D (_StrandTex, fixed2(0, 0.5f)), _StrandColorStrength);
+	o.Albedo *= _BaseLayerColor;
 	o.Normal = lerp(o.Normal, UnpackNormal(tex2D(_Normals, IN.uv_MainTex)), _NormalStr);
 	//o.Metallic = 0;
 	o.Smoothness = 0;

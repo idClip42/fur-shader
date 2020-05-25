@@ -2,6 +2,7 @@
 
     Properties {
         _Color          ("", Color)                 = (1, 1, 1, 1)
+		_BaseLayerColor ("", Color)                 = (1, 1, 1, 1)
         _MainTex        ("", 2D)                    = "white" {}
         _AO             ("", Range (0,1))           = 0.5
         
